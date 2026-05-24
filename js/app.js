@@ -5,6 +5,7 @@ let rewardRules = [
     { min: 100, max: null, amount: 3 }
 ];
 
+
 document.addEventListener('DOMContentLoaded', () => {
     initPageNavigation();
     initAgentTabs();
