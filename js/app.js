@@ -880,30 +880,7 @@ function switchListTabType(type) {
 
 // 更新列表页面统计数据
 function updateListStats() {
-    const now = new Date();
-    const currentMonth = now.getMonth();
-    const currentYear = now.getFullYear();
-    
-    // 根据当前选择的类型过滤数据
-    let filteredRecords = promotionRecords;
-    if (currentListTabType === 'personal') {
-        filteredRecords = promotionRecords.filter(r => r.agentPhone === currentAgent.phone);
-    } else if (currentListTabType === 'team') {
-        // 团队数据，我们这里简单处理，假设团队就是全部数据，先过滤其他推广代理数据（假设是团队团队数据是全部的数据是全部团队全部团队数据
-    }
-    
-    const thisMonth = filteredRecords.filter(r => {
-        const recordDate = new Date(r.date);
-        return recordDate.getMonth() === currentMonth && recordDate.getFullYear() === currentYear;
-    }).length;
-    
-    const total = filteredRecords.length;
-    
-    const monthEl = document.getElementById('list-month-promotion');
-    const totalEl = document.getElementById('list-total-promotion');
-    
-    if (monthEl) monthEl.textContent = thisMonth;
-    if (totalEl) totalEl.textContent = total;
+    // 此函数已弃用，统计现在在renderPromotionListFull中动态显示
 }
 
 function renderPromotionList() {
@@ -970,7 +947,15 @@ function renderPromotionListFull() {
         return true;
     });
 
-    container.innerHTML = filtered.map(record => {
+    // 构建统计栏HTML
+    const totalCount = filtered.length;
+    const statsHtml = `
+        <div class="search-stats-bar">
+            <span class="stats-text">共 <strong>${totalCount}</strong> 条推广记录</span>
+        </div>
+    `;
+
+    container.innerHTML = statsHtml + filtered.map(record => {
         const maskedAgentPhone = record.agentPhone.slice(0, 3) + '****' + record.agentPhone.slice(7);
         const maskedPromotedPhone = record.promotedPhone.slice(0, 3) + '****' + record.promotedPhone.slice(7);
         return `
@@ -998,8 +983,6 @@ function renderPromotionListFull() {
             </div>
         `;
     }).join('');
-
-    updateListStats();
 }
 
 function openAddPromotionModal() {

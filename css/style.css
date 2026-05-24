@@ -4892,6 +4892,23 @@ body {
     color: var(--text-muted);
 }
 
+/* 搜索结果统计栏样式 */
+.search-stats-bar {
+    padding: 12px 16px;
+    background: var(--bg-light);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.stats-text {
+    font-size: 13px;
+    color: var(--text-light);
+}
+
+.stats-text strong {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
 /* 列表页面Tab栏样式 */
 .list-tab-bar {
     display: flex;
@@ -4928,34 +4945,5 @@ body {
     height: 3px;
     background: var(--primary-color);
     border-radius: 2px 2px 0 0;
-}
-
-/* 列表页面统计区域样式 */
-.list-stats-section {
-    display: flex;
-    gap: 12px;
-    padding: 16px;
-    background: var(--bg-light);
-}
-
-.list-stat-card {
-    flex: 1;
-    background: white;
-    border-radius: 12px;
-    padding: 16px;
-    text-align: center;
-    box-shadow: var(--shadow-sm);
-}
-
-.list-stat-value {
-    font-size: 28px;
-    font-weight: 700;
-    color: var(--primary-color);
-    margin-bottom: 4px;
-}
-
-.list-stat-label {
-    font-size: 13px;
-    color: var(--text-light);
 }
 
