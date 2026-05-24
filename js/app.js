@@ -761,7 +761,7 @@ let currentPromotionType = 'personal';
 // 初始化推广记录功能
 function initPromotionRecords() {
     // 推广类型切换按钮
-    const toggleBtns = document.querySelectorAll('.promotion-toggle-section .toggle-btn');
+    const toggleBtns = document.querySelectorAll('.promotion-toggle-btns .toggle-btn');
     toggleBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             const type = btn.getAttribute('data-type');
@@ -835,7 +835,7 @@ function switchPromotionType(type) {
     currentPromotionType = type;
     
     // 更新按钮状态
-    const toggleBtns = document.querySelectorAll('.promotion-toggle-section .toggle-btn');
+    const toggleBtns = document.querySelectorAll('.promotion-toggle-btns .toggle-btn');
     toggleBtns.forEach(btn => {
         if (btn.getAttribute('data-type') === type) {
             btn.classList.add('active');
@@ -859,28 +859,25 @@ function renderPromotionList() {
         const maskedPromotedPhone = record.promotedPhone.slice(0, 3) + '****' + record.promotedPhone.slice(7);
         return `
             <div class="promotion-item">
-                <div class="promotion-avatar">${record.agentName[0]}</div>
-                <div class="promotion-info">
-                    <div class="promotion-header">
-                        <div class="promotion-name">${record.agentName}</div>
-                        <div class="promotion-phone">${maskedAgentPhone}</div>
-                    </div>
-                    <div class="promotion-detail">
-                        <div class="detail-item">
-                            <span class="detail-label">被推广手机号：</span>
+                <div class="promotion-left">
+                    <div class="promotion-avatar">${record.agentName[0]}</div>
+                    <div class="promotion-info">
+                        <div class="promotion-name-row">
+                            <span class="promotion-name">${record.agentName}</span>
+                            <span class="promotion-phone">${maskedAgentPhone}</span>
+                        </div>
+                        <div class="promotion-detail-row">
+                            <span class="detail-label">被推广人：</span>
                             <span class="detail-value">${maskedPromotedPhone}</span>
                         </div>
                         ${record.remark ? `
-                        <div class="detail-item">
-                            <span class="detail-label">备注：</span>
-                            <span class="detail-value">${record.remark}</span>
-                        </div>
+                        <div class="promotion-remark">${record.remark}</div>
                         ` : ''}
                     </div>
                 </div>
-                <div class="promotion-time">
-                    <div class="time">${record.date}</div>
-                    <div class="time">${record.time}</div>
+                <div class="promotion-right">
+                    <div class="promotion-date">${record.date}</div>
+                    <div class="promotion-time">${record.time}</div>
                 </div>
             </div>
         `;
@@ -910,28 +907,25 @@ function renderPromotionListFull() {
         const maskedPromotedPhone = record.promotedPhone.slice(0, 3) + '****' + record.promotedPhone.slice(7);
         return `
             <div class="promotion-item">
-                <div class="promotion-avatar">${record.agentName[0]}</div>
-                <div class="promotion-info">
-                    <div class="promotion-header">
-                        <div class="promotion-name">${record.agentName}</div>
-                        <div class="promotion-phone">${maskedAgentPhone}</div>
-                    </div>
-                    <div class="promotion-detail">
-                        <div class="detail-item">
-                            <span class="detail-label">被推广手机号：</span>
+                <div class="promotion-left">
+                    <div class="promotion-avatar">${record.agentName[0]}</div>
+                    <div class="promotion-info">
+                        <div class="promotion-name-row">
+                            <span class="promotion-name">${record.agentName}</span>
+                            <span class="promotion-phone">${maskedAgentPhone}</span>
+                        </div>
+                        <div class="promotion-detail-row">
+                            <span class="detail-label">被推广人：</span>
                             <span class="detail-value">${maskedPromotedPhone}</span>
                         </div>
                         ${record.remark ? `
-                        <div class="detail-item">
-                            <span class="detail-label">备注：</span>
-                            <span class="detail-value">${record.remark}</span>
-                        </div>
+                        <div class="promotion-remark">${record.remark}</div>
                         ` : ''}
                     </div>
                 </div>
-                <div class="promotion-time">
-                    <div class="time">${record.date}</div>
-                    <div class="time">${record.time}</div>
+                <div class="promotion-right">
+                    <div class="promotion-date">${record.date}</div>
+                    <div class="promotion-time">${record.time}</div>
                 </div>
             </div>
         `;

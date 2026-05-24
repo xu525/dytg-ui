@@ -4712,34 +4712,183 @@ body {
     transform: translateY(0);
 }
 
-/* 推广记录切换按钮样式 */
-.promotion-toggle-section {
-    display: flex;
-    gap: 8px;
-    padding: 16px 20px;
-    background: var(--bg-light);
-    justify-content: center;
+/* 推广记录统计区域样式 */
+.promotion-stats-section {
+    margin: 16px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
 }
 
-.toggle-btn {
-    padding: 10px 32px;
-    border: 2px solid var(--primary-color);
+.promotion-toggle-header {
+    padding: 12px 16px;
+    display: flex;
+    justify-content: flex-end;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.promotion-toggle-btns {
+    display: flex;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 4px;
+    border-radius: 20px;
+}
+
+.promotion-toggle-btns .toggle-btn {
+    padding: 6px 20px;
+    border: none;
     background: transparent;
-    color: var(--primary-color);
-    font-size: 14px;
-    font-weight: 600;
-    border-radius: 24px;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 16px;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
-.toggle-btn.active {
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    color: white;
-    border-color: transparent;
+.promotion-toggle-btns .toggle-btn.active {
+    background: white;
+    color: var(--primary-color);
 }
 
-.toggle-btn:hover:not(.active) {
-    background: rgba(15, 52, 96, 0.1);
+.promotion-toggle-btns .toggle-btn:hover:not(.active) {
+    color: white;
+}
+
+.promotion-stats-grid {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+    gap: 32px;
+}
+
+.promotion-stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 36px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 4px;
+}
+
+.stat-desc {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.stat-divider {
+    width: 1px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* 推广记录列表样式优化 */
+.promotion-list-section {
+    padding: 0 16px 16px;
+}
+
+.promotion-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.promotion-item {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+}
+
+.promotion-item:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.promotion-left {
+    display: flex;
+    gap: 12px;
+    flex: 1;
+    min-width: 0;
+}
+
+.promotion-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.promotion-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.promotion-name-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+}
+
+.promotion-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.promotion-phone {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.promotion-detail-row {
+    font-size: 13px;
+    color: var(--text-light);
+    margin-bottom: 4px;
+}
+
+.promotion-remark {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-style: italic;
+    background: var(--bg-light);
+    padding: 4px 8px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-top: 4px;
+}
+
+.promotion-right {
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.promotion-date {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 2px;
+}
+
+.promotion-time {
+    font-size: 11px;
+    color: var(--text-muted);
 }
 

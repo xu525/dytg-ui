@@ -422,19 +422,23 @@
                 </button>
             </div>
 
-            <div class="promotion-toggle-section">
-                <button class="toggle-btn active" data-type="personal">个人</button>
-                <button class="toggle-btn" data-type="team">团队</button>
-            </div>
-
-            <div class="promotion-stats">
-                <div class="promotion-stat-card">
-                    <div class="stat-value" id="month-promotion">12</div>
-                    <div class="stat-label">本月推广人数</div>
+            <div class="promotion-stats-section">
+                <div class="promotion-toggle-header">
+                    <div class="promotion-toggle-btns">
+                        <button class="toggle-btn active" data-type="personal">个人</button>
+                        <button class="toggle-btn" data-type="team">团队</button>
+                    </div>
                 </div>
-                <div class="promotion-stat-card">
-                    <div class="stat-value" id="total-promotion">256</div>
-                    <div class="stat-label">全部推广人数</div>
+                <div class="promotion-stats-grid">
+                    <div class="promotion-stat-item">
+                        <div class="stat-number" id="month-promotion">12</div>
+                        <div class="stat-desc">本月推广</div>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="promotion-stat-item">
+                        <div class="stat-number" id="total-promotion">256</div>
+                        <div class="stat-desc">全部推广</div>
+                    </div>
                 </div>
             </div>
 
