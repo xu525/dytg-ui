@@ -1,9 +1,10 @@
 #!/bin/bash
 
-# 代理管理系统 - 智能启动脚本
+# 代理管理系统 - 完整启动脚本
 # 功能：
 # 1. 检测云端是否有最新版本并自动更新
 # 2. 本地更改后自动同步到云端
+# 3. 启动HTTP服务器
 
 set -e
 
@@ -101,3 +102,35 @@ echo "=========================================="
 echo "🚀 启动代理管理系统..."
 echo "=========================================="
 echo ""
+
+# 停止已存在的服务器
+echo "🔄 清理旧进程..."
+pkill -f "python3 -m http.server" 2>/dev/null || true
+sleep 1
+
+# 启动HTTP服务器
+echo "🌐 启动HTTP服务器 (端口 8080)..."
+python3 -m http.server 8080 > /dev/null 2>&1 &
+SERVER_PID=$!
+
+sleep 2
+
+# 验证服务器是否启动成功
+if curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/ | grep -q "200"; then
+    echo ""
+    echo "=========================================="
+    echo "✅ 代理管理系统启动成功！"
+    echo "=========================================="
+    echo ""
+    echo "🌐 访问地址: http://localhost:8080/"
+    echo "📋 进程ID: $SERVER_PID"
+    echo ""
+    echo "按 Ctrl+C 停止服务器"
+    echo ""
+    
+    # 保持脚本运行
+    wait $SERVER_PID
+else
+    echo "❌ 服务器启动失败"
+    exit 1
+fi
