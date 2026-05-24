@@ -414,30 +414,20 @@
                     </svg>
                 </button>
                 <h1>推广记录</h1>
-                <button class="add-btn" data-action="show-add-promotion">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="12" y1="5" x2="12" y2="19"/>
-                        <line x1="5" y1="12" x2="19" y2="12"/>
-                    </svg>
-                </button>
+                <div class="promotion-toggle">
+                    <button class="toggle-btn active" data-type="personal">个人</button>
+                    <button class="toggle-btn" data-type="team">团队</button>
+                </div>
             </div>
 
             <div class="promotion-stats">
                 <div class="promotion-stat-card">
-                    <div class="stat-value" id="month-personal-promotion">0</div>
-                    <div class="stat-label">本月个人推广人数</div>
+                    <div class="stat-value" id="month-promotion">12</div>
+                    <div class="stat-label">本月推广人数</div>
                 </div>
                 <div class="promotion-stat-card">
-                    <div class="stat-value" id="month-team-promotion">0</div>
-                    <div class="stat-label">本月团队推广人数</div>
-                </div>
-                <div class="promotion-stat-card">
-                    <div class="stat-value" id="total-personal-promotion">0</div>
-                    <div class="stat-label">个人全部推广数</div>
-                </div>
-                <div class="promotion-stat-card">
-                    <div class="stat-value" id="total-team-promotion">0</div>
-                    <div class="stat-label">团队全部推广数</div>
+                    <div class="stat-value" id="total-promotion">256</div>
+                    <div class="stat-label">全部推广人数</div>
                 </div>
             </div>
 

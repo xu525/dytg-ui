@@ -755,8 +755,20 @@ const currentAgent = {
     phone: '13888888888'
 };
 
+// 当前推广类型（个人/团队）
+let currentPromotionType = 'personal';
+
 // 初始化推广记录功能
 function initPromotionRecords() {
+    // 推广类型切换按钮
+    const toggleBtns = document.querySelectorAll('.toggle-btn');
+    toggleBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const type = btn.getAttribute('data-type');
+            switchPromotionType(type);
+        });
+    });
+
     // 查看更多链接点击事件
     const viewMoreLink = document.querySelector('[data-page="promotion-list-page"]');
     if (viewMoreLink) {
@@ -767,14 +779,9 @@ function initPromotionRecords() {
         });
     }
 
-    // 添加推广按钮
-    const addBtn = document.querySelector('[data-action="show-add-promotion"]');
-    if (addBtn) {
-        addBtn.addEventListener('click', () => {
-            openAddPromotionModal();
-        });
-    }
-
+    // 添加推广按钮（移到其他位置，因为右上角现在是切换按钮）
+    // 可以在页面其他地方添加添加按钮
+    
     // 推广记录列表页面
     const promotionListPage = document.getElementById('promotion-list-page');
     if (promotionListPage) {
@@ -815,6 +822,25 @@ function initPromotionRecords() {
 
     // 初始渲染
     renderPromotionList();
+    updatePromotionStats();
+}
+
+// 切换推广类型
+function switchPromotionType(type) {
+    currentPromotionType = type;
+    
+    // 更新按钮状态
+    const toggleBtns = document.querySelectorAll('.toggle-btn');
+    toggleBtns.forEach(btn => {
+        if (btn.getAttribute('data-type') === type) {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
+    });
+    
+    // 更新统计数据
+    updatePromotionStats();
 }
 
 function renderPromotionList() {
@@ -964,34 +990,23 @@ function updatePromotionStats() {
     const currentMonth = now.getMonth();
     const currentYear = now.getFullYear();
     
-    const thisMonthPersonal = promotionRecords.filter(r => {
-        const recordDate = new Date(r.date);
-        return recordDate.getMonth() === currentMonth && recordDate.getFullYear() === currentYear && r.agentPhone === currentAgent.phone;
-    }).length;
+    // 根据当前选择的类型筛选数据
+    const filteredRecords = currentPromotionType === 'personal' 
+        ? promotionRecords.filter(r => r.agentPhone === currentAgent.phone)
+        : promotionRecords;
     
-    const thisMonthTeam = promotionRecords.filter(r => {
+    const thisMonth = filteredRecords.filter(r => {
         const recordDate = new Date(r.date);
         return recordDate.getMonth() === currentMonth && recordDate.getFullYear() === currentYear;
     }).length;
     
-    const totalPersonal = promotionRecords.filter(r => r.agentPhone === currentAgent.phone).length;
-    const totalTeam = promotionRecords.length;
+    const total = filteredRecords.length;
     
-    const ids = [
-        ['month-personal-promotion', thisMonthPersonal],
-        ['month-team-promotion', thisMonthTeam],
-        ['total-personal-promotion', totalPersonal],
-        ['total-team-promotion', totalTeam],
-        ['month-personal-promotion-full', thisMonthPersonal],
-        ['month-team-promotion-full', thisMonthTeam],
-        ['total-personal-promotion-full', totalPersonal],
-        ['total-team-promotion-full', totalTeam]
-    ];
+    const monthEl = document.getElementById('month-promotion');
+    const totalEl = document.getElementById('total-promotion');
     
-    ids.forEach(([id, value]) => {
-        const el = document.getElementById(id);
-        if (el) el.textContent = value;
-    });
+    if (monthEl) monthEl.textContent = thisMonth;
+    if (totalEl) totalEl.textContent = total;
 }
 
 // 代理数据

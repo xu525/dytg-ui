@@ -4712,3 +4712,33 @@ body {
     transform: translateY(0);
 }
 
+/* 推广记录切换按钮样式 */
+.promotion-toggle {
+    display: flex;
+    gap: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 4px;
+    border-radius: 20px;
+}
+
+.toggle-btn {
+    padding: 6px 16px;
+    border: none;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.toggle-btn.active {
+    background: white;
+    color: var(--primary-color);
+}
+
+.toggle-btn:hover:not(.active) {
+    color: white;
+}
+
