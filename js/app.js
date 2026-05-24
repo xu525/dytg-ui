@@ -761,7 +761,7 @@ let currentPromotionType = 'personal';
 // 初始化推广记录功能
 function initPromotionRecords() {
     // 推广类型切换按钮
-    const toggleBtns = document.querySelectorAll('.toggle-btn');
+    const toggleBtns = document.querySelectorAll('.promotion-toggle-section .toggle-btn');
     toggleBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             const type = btn.getAttribute('data-type');
@@ -779,9 +779,14 @@ function initPromotionRecords() {
         });
     }
 
-    // 添加推广按钮（移到其他位置，因为右上角现在是切换按钮）
-    // 可以在页面其他地方添加添加按钮
-    
+    // 添加推广按钮
+    const addBtn = document.querySelector('[data-action="show-add-promotion"]');
+    if (addBtn) {
+        addBtn.addEventListener('click', () => {
+            openAddPromotionModal();
+        });
+    }
+
     // 推广记录列表页面
     const promotionListPage = document.getElementById('promotion-list-page');
     if (promotionListPage) {
@@ -830,7 +835,7 @@ function switchPromotionType(type) {
     currentPromotionType = type;
     
     // 更新按钮状态
-    const toggleBtns = document.querySelectorAll('.toggle-btn');
+    const toggleBtns = document.querySelectorAll('.promotion-toggle-section .toggle-btn');
     toggleBtns.forEach(btn => {
         if (btn.getAttribute('data-type') === type) {
             btn.classList.add('active');
