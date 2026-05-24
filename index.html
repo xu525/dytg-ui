@@ -92,14 +92,6 @@
                         </div>
                         <span class="menu-label">采购管理</span>
                     </div>
-                    <div class="menu-item" data-page="settlement-management">
-                        <div class="menu-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-                            </svg>
-                        </div>
-                        <span class="menu-label">结算管理</span>
-                    </div>
                     <div class="menu-item" data-page="profile">
                         <div class="menu-icon">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -432,12 +424,20 @@
 
             <div class="promotion-stats">
                 <div class="promotion-stat-card">
-                    <div class="stat-value" id="month-promotion">12</div>
-                    <div class="stat-label">本月推广人数</div>
+                    <div class="stat-value" id="month-personal-promotion">0</div>
+                    <div class="stat-label">本月个人推广人数</div>
                 </div>
                 <div class="promotion-stat-card">
-                    <div class="stat-value" id="total-promotion">256</div>
-                    <div class="stat-label">已推广人数</div>
+                    <div class="stat-value" id="month-team-promotion">0</div>
+                    <div class="stat-label">本月团队推广人数</div>
+                </div>
+                <div class="promotion-stat-card">
+                    <div class="stat-value" id="total-personal-promotion">0</div>
+                    <div class="stat-label">个人全部推广数</div>
+                </div>
+                <div class="promotion-stat-card">
+                    <div class="stat-value" id="total-team-promotion">0</div>
+                    <div class="stat-label">团队全部推广数</div>
                 </div>
             </div>
 
@@ -483,6 +483,25 @@
                     <span>至</span>
                     <input type="date" id="promotion-end-date">
                     <button class="filter-apply-btn" data-action="filter-promotions">筛选</button>
+                </div>
+            </div>
+            
+            <div class="promotion-stats">
+                <div class="promotion-stat-card">
+                    <div class="stat-value" id="month-personal-promotion-full">0</div>
+                    <div class="stat-label">本月个人推广人数</div>
+                </div>
+                <div class="promotion-stat-card">
+                    <div class="stat-value" id="month-team-promotion-full">0</div>
+                    <div class="stat-label">本月团队推广人数</div>
+                </div>
+                <div class="promotion-stat-card">
+                    <div class="stat-value" id="total-personal-promotion-full">0</div>
+                    <div class="stat-label">个人全部推广数</div>
+                </div>
+                <div class="promotion-stat-card">
+                    <div class="stat-value" id="total-team-promotion-full">0</div>
+                    <div class="stat-label">团队全部推广数</div>
                 </div>
             </div>
             
@@ -888,6 +907,22 @@
                         <polyline points="9 18 15 12 9 6"/>
                     </svg>
                 </div>
+                <div class="profile-menu-item" data-action="withdraw-process">
+                    <div class="menu-icon-wrapper">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                            <line x1="12" y1="19" x2="12" y2="5"/>
+                            <polyline points="5 12 12 19 19 12"/>
+                        </svg>
+                    </div>
+                    <div class="menu-text">
+                        <div class="menu-title">提现处理</div>
+                        <div class="menu-subtitle" id="pending-withdraw-count">待审核 0 条</div>
+                    </div>
+                    <svg class="menu-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="9 18 15 12 9 6"/>
+                    </svg>
+                </div>
             </div>
         </div>
         
@@ -909,18 +944,34 @@
                     <div class="balance-label">账户余额</div>
                     <div class="balance-amount">¥12,580.00</div>
                 </div>
-                <button class="balance-recharge-btn" data-action="recharge">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="12" y1="5" x2="12" y2="19"/>
-                        <line x1="5" y1="12" x2="19" y2="12"/>
-                    </svg>
-                    充值
-                </button>
+                <div class="balance-action-btns">
+                    <button class="balance-recharge-btn" data-action="recharge">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                        充值
+                    </button>
+                    <button class="balance-withdraw-btn" data-action="balance-withdraw">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                        提现
+                    </button>
+                </div>
             </div>
             
             <!-- 余额明细列表 -->
             <div class="detail-list-section">
-                <div class="section-title">收支明细</div>
+                <div class="section-header">
+                    <h3 class="section-title">收支明细</h3>
+                    <a class="view-more-link" href="#" data-page="balance-withdraw-record-page">
+                        提现记录
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                            <polyline points="9 18 15 12 9 6"/>
+                        </svg>
+                    </a>
+                </div>
                 <div class="balance-detail-list" id="balance-detail-list"></div>
             </div>
         </div>
@@ -949,12 +1000,281 @@
                         <div class="info-value">¥56,800.00</div>
                     </div>
                 </div>
+                <button class="commission-withdraw-btn" data-action="commission-withdraw">提现佣金</button>
             </div>
             
             <!-- 佣金明细列表 -->
             <div class="detail-list-section">
-                <div class="section-title">佣金记录</div>
+                <div class="section-header">
+                    <h3 class="section-title">佣金记录</h3>
+                    <a class="view-more-link" href="#" data-page="commission-withdraw-record-page">
+                        提现记录
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                            <polyline points="9 18 15 12 9 6"/>
+                        </svg>
+                    </a>
+                </div>
                 <div class="commission-detail-list" id="commission-detail-list"></div>
+            </div>
+        </div>
+        
+        <!-- 余额提现页面 -->
+        <div id="balance-withdraw-page" class="page">
+            <div class="page-header">
+                <button class="back-btn" data-back>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                </button>
+                <h1>余额提现</h1>
+                <div></div>
+            </div>
+            
+            <div class="withdraw-info-card">
+                <div class="withdraw-info-label">可提现余额</div>
+                <div class="withdraw-info-amount" id="withdraw-balance-available">¥12,580.00</div>
+            </div>
+            
+            <div class="withdraw-form">
+                <div class="form-group">
+                    <label>提现金额</label>
+                    <div class="withdraw-amount-input">
+                        <span class="currency-symbol">¥</span>
+                        <input type="number" id="balance-withdraw-amount" placeholder="请输入提现金额" min="1" step="0.01">
+                    </div>
+                    <div class="withdraw-hint">单笔最低提现1元，手续费0.6%</div>
+                </div>
+                <div class="form-group">
+                    <label>提现方式</label>
+                    <div class="withdraw-method-list">
+                        <div class="withdraw-method-item selected" data-method="wechat">
+                            <div class="method-icon wechat-icon"></div>
+                            <span>微信</span>
+                        </div>
+                        <div class="withdraw-method-item" data-method="alipay">
+                            <div class="method-icon alipay-icon"></div>
+                            <span>支付宝</span>
+                        </div>
+                        <div class="withdraw-method-item" data-method="bank">
+                            <div class="method-icon bank-icon"></div>
+                            <span>银行卡</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="withdraw-summary">
+                    <div class="summary-row">
+                        <span>提现金额</span>
+                        <span id="balance-withdraw-summary-amount">¥0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>手续费</span>
+                        <span id="balance-withdraw-summary-fee">¥0.00</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>实际到账</span>
+                        <span id="balance-withdraw-summary-real">¥0.00</span>
+                    </div>
+                </div>
+                <button class="btn confirm withdraw-confirm-btn" data-action="confirm-balance-withdraw">确认提现</button>
+            </div>
+        </div>
+        
+        <!-- 余额提现记录页面 -->
+        <div id="balance-withdraw-record-page" class="page">
+            <div class="page-header">
+                <button class="back-btn" data-back>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                </button>
+                <h1>余额提现记录</h1>
+                <div></div>
+            </div>
+            <div class="detail-list-section">
+                <div class="withdraw-record-list" id="balance-withdraw-record-list"></div>
+            </div>
+        </div>
+        
+        <!-- 佣金提现页面 -->
+        <div id="commission-withdraw-page" class="page">
+            <div class="page-header">
+                <button class="back-btn" data-back>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                </button>
+                <h1>佣金提现</h1>
+                <div></div>
+            </div>
+            
+            <div class="withdraw-info-card commission">
+                <div class="withdraw-info-label">可提现佣金</div>
+                <div class="withdraw-info-amount" id="withdraw-commission-available">¥56,800.00</div>
+            </div>
+            
+            <div class="withdraw-form">
+                <div class="form-group">
+                    <label>提现金额</label>
+                    <div class="withdraw-amount-input">
+                        <span class="currency-symbol">¥</span>
+                        <input type="number" id="commission-withdraw-amount" placeholder="请输入提现金额" min="1" step="0.01">
+                    </div>
+                    <div class="withdraw-hint">单笔最低提现1元，手续费0.6%</div>
+                </div>
+                <div class="form-group">
+                    <label>提现方式</label>
+                    <div class="withdraw-method-list">
+                        <div class="withdraw-method-item selected" data-method="wechat">
+                            <div class="method-icon wechat-icon"></div>
+                            <span>微信</span>
+                        </div>
+                        <div class="withdraw-method-item" data-method="alipay">
+                            <div class="method-icon alipay-icon"></div>
+                            <span>支付宝</span>
+                        </div>
+                        <div class="withdraw-method-item" data-method="bank">
+                            <div class="method-icon bank-icon"></div>
+                            <span>银行卡</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="withdraw-summary">
+                    <div class="summary-row">
+                        <span>提现金额</span>
+                        <span id="commission-withdraw-summary-amount">¥0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>手续费</span>
+                        <span id="commission-withdraw-summary-fee">¥0.00</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>实际到账</span>
+                        <span id="commission-withdraw-summary-real">¥0.00</span>
+                    </div>
+                </div>
+                <button class="btn confirm withdraw-confirm-btn" data-action="confirm-commission-withdraw">确认提现</button>
+            </div>
+        </div>
+        
+        <!-- 佣金提现记录页面 -->
+        <div id="commission-withdraw-record-page" class="page">
+            <div class="page-header">
+                <button class="back-btn" data-back>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                </button>
+                <h1>佣金提现记录</h1>
+                <div></div>
+            </div>
+            <div class="detail-list-section">
+                <div class="withdraw-record-list" id="commission-withdraw-record-list"></div>
+            </div>
+        </div>
+        
+        <!-- 提现处理页面 -->
+        <div id="withdraw-process-page" class="page">
+            <div class="page-header">
+                <button class="back-btn" data-back>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                </button>
+                <h1>提现处理</h1>
+                <div></div>
+            </div>
+            
+            <div class="withdraw-process-stats">
+                <div class="process-stat-card">
+                    <div class="process-stat-value" id="process-pending-count">0</div>
+                    <div class="process-stat-label">待审核</div>
+                </div>
+                <div class="process-stat-card">
+                    <div class="process-stat-value" id="process-success-count">0</div>
+                    <div class="process-stat-label">已通过</div>
+                </div>
+                <div class="process-stat-card">
+                    <div class="process-stat-value" id="process-failed-count">0</div>
+                    <div class="process-stat-label">已拒绝</div>
+                </div>
+            </div>
+            
+            <div class="withdraw-process-filter">
+                <button class="filter-tab active" data-filter="all">全部</button>
+                <button class="filter-tab" data-filter="pending">待审核</button>
+                <button class="filter-tab" data-filter="success">已通过</button>
+                <button class="filter-tab" data-filter="failed">已拒绝</button>
+            </div>
+            
+            <div class="withdraw-process-list" id="withdraw-process-list"></div>
+        </div>
+        
+        <!-- 提现审核弹窗 -->
+        <div id="withdraw-review-modal" class="modal">
+            <div class="modal-overlay"></div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>提现审核</h2>
+                    <button class="modal-close" data-action="close-withdraw-review">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"/>
+                            <line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="review-record-info">
+                        <div class="review-info-row">
+                            <span class="review-label">提现单号</span>
+                            <span class="review-value" id="review-order-no"></span>
+                        </div>
+                        <div class="review-info-row">
+                            <span class="review-label">提现人</span>
+                            <span class="review-value" id="review-agent-name"></span>
+                        </div>
+                        <div class="review-info-row">
+                            <span class="review-label">手机号</span>
+                            <span class="review-value" id="review-agent-phone"></span>
+                        </div>
+                        <div class="review-info-row">
+                            <span class="review-label">提现金额</span>
+                            <span class="review-value" id="review-amount"></span>
+                        </div>
+                        <div class="review-info-row">
+                            <span class="review-label">实转金额</span>
+                            <span class="review-value" id="review-real-amount"></span>
+                        </div>
+                        <div class="review-info-row">
+                            <span class="review-label">提现方式</span>
+                            <span class="review-value" id="review-method"></span>
+                        </div>
+                        <div class="review-info-row">
+                            <span class="review-label">申请时间</span>
+                            <span class="review-value" id="review-time"></span>
+                        </div>
+                    </div>
+                    <div class="review-form-group">
+                        <label>审核结果</label>
+                        <div class="review-result-options">
+                            <div class="review-result-item selected" data-result="success">
+                                <div class="result-radio checked"></div>
+                                <span>审核通过</span>
+                            </div>
+                            <div class="review-result-item" data-result="failed">
+                                <div class="result-radio"></div>
+                                <span>审核拒绝</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-form-group">
+                        <label>审核说明</label>
+                        <textarea id="review-remark" placeholder="请输入审核结果说明" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn cancel" data-action="close-withdraw-review">取消</button>
+                    <button class="btn confirm" data-action="submit-withdraw-review">提交审核</button>
+                </div>
             </div>
         </div>
         
