@@ -4892,3 +4892,70 @@ body {
     color: var(--text-muted);
 }
 
+/* 列表页面Tab栏样式 */
+.list-tab-bar {
+    display: flex;
+    gap: 0;
+    background: white;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.list-tab-btn {
+    flex: 1;
+    padding: 14px 16px;
+    border: none;
+    background: transparent;
+    color: var(--text-light);
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.list-tab-btn.active {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.list-tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 3px;
+    background: var(--primary-color);
+    border-radius: 2px 2px 0 0;
+}
+
+/* 列表页面统计区域样式 */
+.list-stats-section {
+    display: flex;
+    gap: 12px;
+    padding: 16px;
+    background: var(--bg-light);
+}
+
+.list-stat-card {
+    flex: 1;
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+}
+
+.list-stat-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 4px;
+}
+
+.list-stat-label {
+    font-size: 13px;
+    color: var(--text-light);
+}
+

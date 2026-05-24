@@ -758,6 +758,9 @@ const currentAgent = {
 // 当前推广类型（个人/团队）
 let currentPromotionType = 'personal';
 
+// 当前列表页面Tab类型
+let currentListTabType = 'all';
+
 // 初始化推广记录功能
 function initPromotionRecords() {
     // 推广类型切换按钮
@@ -790,6 +793,15 @@ function initPromotionRecords() {
     // 推广记录列表页面
     const promotionListPage = document.getElementById('promotion-list-page');
     if (promotionListPage) {
+        // 列表Tab按钮
+        const listTabBtns = promotionListPage.querySelectorAll('.list-tab-btn');
+        listTabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const type = btn.getAttribute('data-list-type');
+                switchListTabType(type);
+            });
+        });
+
         // 搜索功能
         const searchInput = promotionListPage.querySelector('#promotion-search-input');
         const searchBtn = promotionListPage.querySelector('.search-btn');
@@ -848,6 +860,52 @@ function switchPromotionType(type) {
     updatePromotionStats();
 }
 
+// 切换列表Tab类型
+function switchListTabType(type) {
+    currentListTabType = type;
+    
+    // 更新按钮状态
+    const listTabBtns = document.querySelectorAll('.list-tab-btn');
+    listTabBtns.forEach(btn => {
+        if (btn.getAttribute('data-list-type') === type) {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
+    });
+    
+    // 重新渲染列表和统计数据
+    renderPromotionListFull();
+}
+
+// 更新列表页面统计数据
+function updateListStats() {
+    const now = new Date();
+    const currentMonth = now.getMonth();
+    const currentYear = now.getFullYear();
+    
+    // 根据当前选择的类型过滤数据
+    let filteredRecords = promotionRecords;
+    if (currentListTabType === 'personal') {
+        filteredRecords = promotionRecords.filter(r => r.agentPhone === currentAgent.phone);
+    } else if (currentListTabType === 'team') {
+        // 团队数据，我们这里简单处理，假设团队就是全部数据，先过滤其他推广代理数据（假设是团队团队数据是全部的数据是全部团队全部团队数据
+    }
+    
+    const thisMonth = filteredRecords.filter(r => {
+        const recordDate = new Date(r.date);
+        return recordDate.getMonth() === currentMonth && recordDate.getFullYear() === currentYear;
+    }).length;
+    
+    const total = filteredRecords.length;
+    
+    const monthEl = document.getElementById('list-month-promotion');
+    const totalEl = document.getElementById('list-total-promotion');
+    
+    if (monthEl) monthEl.textContent = thisMonth;
+    if (totalEl) totalEl.textContent = total;
+}
+
 function renderPromotionList() {
     const container = document.getElementById('promotion-list-container');
     if (!container) return;
@@ -895,7 +953,17 @@ function renderPromotionListFull() {
     const startDate = promotionListPage.querySelector('#promotion-start-date')?.value || '';
     const endDate = promotionListPage.querySelector('#promotion-end-date')?.value || '';
 
-    let filtered = promotionRecords.filter(record => {
+    // 先根据tab类型过滤
+    let filtered = promotionRecords;
+    if (currentListTabType === 'personal') {
+        filtered = promotionRecords.filter(r => r.agentPhone === currentAgent.phone);
+    } else if (currentListTabType === 'team') {
+        // 团队数据可以在这里进一步处理
+        // 暂时使用全部数据，或者添加其他过滤逻辑
+    }
+
+    // 再应用搜索和日期筛选
+    filtered = filtered.filter(record => {
         if (searchTerm && !record.agentName.toLowerCase().includes(searchTerm) && !record.agentPhone.includes(searchTerm) && !record.promotedPhone.includes(searchTerm)) return false;
         if (startDate && record.date < startDate) return false;
         if (endDate && record.date > endDate) return false;
@@ -931,7 +999,7 @@ function renderPromotionListFull() {
         `;
     }).join('');
 
-    updatePromotionStats();
+    updateListStats();
 }
 
 function openAddPromotionModal() {

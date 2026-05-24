@@ -468,6 +468,23 @@
                 <div></div>
             </div>
             
+            <div class="list-tab-bar">
+                <button class="list-tab-btn active" data-list-type="all">全部</button>
+                <button class="list-tab-btn" data-list-type="personal">个人</button>
+                <button class="list-tab-btn" data-list-type="team">团队</button>
+            </div>
+            
+            <div class="list-stats-section">
+                <div class="list-stat-card">
+                    <div class="list-stat-value" id="list-month-promotion">0</div>
+                    <div class="list-stat-label">本月推广人数</div>
+                </div>
+                <div class="list-stat-card">
+                    <div class="list-stat-value" id="list-total-promotion">0</div>
+                    <div class="list-stat-label">全部推广人数</div>
+                </div>
+            </div>
+            
             <div class="search-filter-section">
                 <div class="search-box">
                     <input type="text" id="promotion-search-input" placeholder="搜索推广人/手机号">
@@ -484,25 +501,6 @@
                     <span>至</span>
                     <input type="date" id="promotion-end-date">
                     <button class="filter-apply-btn" data-action="filter-promotions">筛选</button>
-                </div>
-            </div>
-            
-            <div class="promotion-stats">
-                <div class="promotion-stat-card">
-                    <div class="stat-value" id="month-personal-promotion-full">0</div>
-                    <div class="stat-label">本月个人推广人数</div>
-                </div>
-                <div class="promotion-stat-card">
-                    <div class="stat-value" id="month-team-promotion-full">0</div>
-                    <div class="stat-label">本月团队推广人数</div>
-                </div>
-                <div class="promotion-stat-card">
-                    <div class="stat-value" id="total-personal-promotion-full">0</div>
-                    <div class="stat-label">个人全部推广数</div>
-                </div>
-                <div class="promotion-stat-card">
-                    <div class="stat-value" id="total-team-promotion-full">0</div>
-                    <div class="stat-label">团队全部推广数</div>
                 </div>
             </div>
             
