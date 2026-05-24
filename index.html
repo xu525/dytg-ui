@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>代理管理系统</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <!-- 首页 -->
+        <div id="home-page" class="page active">
+            <div class="header">
+                <div class="header-bg"></div>
+                <div class="profile-card">
+                    <div class="avatar">
+                        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=professional%20business%20portrait%20avatar&image_size=square" alt="头像">
+                    </div>
+                    <div class="profile-info">
+                        <h2 class="name">王经理</h2>
+                        <p class="phone">138****8888</p>
+                    </div>
+                    <div class="message-icon" data-action="message-list">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                        </svg>
+                        <span class="message-badge" id="message-badge">3</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-section">
+                <div class="stat-card">
+                    <div class="stat-value">¥12,580</div>
+                    <div class="stat-label">本月佣金</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">256</div>
+                    <div class="stat-label">推广人数</div>
+                </div>
+            </div>
+
+            <div class="menu-section">
+                <div class="menu-grid">
+                    <div class="menu-item" data-page="agent-management">
+                        <div class="menu-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                <circle cx="9" cy="7" r="4"/>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                            </svg>
+                        </div>
+                        <span class="menu-label">代理管理</span>
+                    </div>
+                    <div class="menu-item" data-page="card-management">
+                        <div class="menu-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+                                <line x1="1" y1="10" x2="23" y2="10"/>
+                            </svg>
+                        </div>
+                        <span class="menu-label">电影卡管理</span>
+                    </div>
+                    <div class="menu-item" data-page="promotion-records">
+                        <div class="menu-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                            </svg>
+                        </div>
+                        <span class="menu-label">推广记录</span>
+                    </div>
+                    <div class="menu-item" data-page="sales-management">
+                        <div class="menu-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="9" cy="21" r="1"/>
+                                <circle cx="20" cy="21" r="1"/>
+                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                            </svg>
+                        </div>
+                        <span class="menu-label">销售管理</span>
+                    </div>
+                    <div class="menu-item" data-page="purchase-management">
+                        <div class="menu-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+                                <line x1="3" y1="6" x2="21" y2="6"/>
+                                <path d="M16 10a4 4 0 0 1-8 0"/>
+                            </svg>
+                        </div>
+                        <span class="menu-label">采购管理</span>
+                    </div>
+                    <div class="menu-item" data-page="settlement-management">
+                        <div class="menu-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                            </svg>
+                        </div>
+                        <span class="menu-label">结算管理</span>
+                    </div>
+                    <div class="menu-item" data-page="profile">
+                        <div class="menu-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                        </div>
+                        <span class="menu-label">个人中心</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 代理管理页 -->
+        <div id="agent-management-page" class="page">
+            <div class="page-header">
+                <button class="back-btn" data-back>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                </button>
+                <h1>代理管理</h1>
+                <button class="add-btn" data-action="show-create-agent">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"/>
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="agent-stats">
+                <div class="agent-stat-card">
+                    <div class="stat-icon month-icon">📅</div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="month-new-agents">3</div>
+                        <div class="stat-label">本月发展代理</div>
+                    </div>
+                </div>
+                <div class="agent-stat-card">
+                    <div class="stat-icon sub-icon">👥</div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="sub-agents">15</div>
+                        <div class="stat-label">下级代理数</div>
+                    </div>
+                </div>
+                <div class="agent-stat-card">
+                    <div class="stat-icon team-icon">🏢</div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="team-agents">18</div>
+                        <div class="stat-label">团队代理数</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="agent-tabs">
+                <button class="tab-btn active" data-tab="agent-list">代理列表</button>
+                <button class="tab-btn" data-tab="agent-settings">代理设置</button>
+            </div>
+
+            <div id="agent-list-tab" class="tab-content active">
+                <div class="agent-list" id="agent-list-container">
+                    <div class="agent-item" data-agent-id="1">
+                        <div class="agent-avatar">张</div>
+                        <div class="agent-info">
+                            <div class="agent-name">张明</div>
+                            <div class="agent-phone">139****1234</div>
+                            <div class="agent-sub-count">一级代理: 5人</div>
+                        </div>
+                        <div class="agent-status active">正常</div>
+                        <div class="agent-actions">
+                            <button class="action-btn settings" data-action="agent-settings">设置</button>
+                            <button class="action-btn edit">编辑</button>
+                            <button class="action-btn disable">禁用</button>
+                        </div>
+                    </div>
+                    <div class="agent-item" data-agent-id="2">
+                        <div class="agent-avatar">李</div>
+                        <div class="agent-info">
+                            <div class="agent-name">李华</div>
+                            <div class="agent-phone">138****5678</div>
+                            <div class="agent-sub-count">一级代理: 8人</div>
+                        </div>
+                        <div class="agent-status active">正常</div>
+                        <div class="agent-actions">
+                            <button class="action-btn settings" data-action="agent-settings">设置</button>
+                            <button class="action-btn edit">编辑</button>
+                            <button class="action-btn disable">禁用</button>
+                        </div>
+                    </div>
+                    <div class="agent-item" data-agent-id="3">
+                        <div class="agent-avatar">王</div>
+                        <div class="agent-info">
+                            <div class="agent-name">王芳</div>
+                            <div class="agent-phone">137****9012</div>
+                            <div class="agent-sub-count">一级代理: 2人</div>
+                        </div>
+                        <div class="agent-status disabled">已禁用</div>
+                        <div class="agent-actions">
+                            <button class="action-btn settings" data-action="agent-settings">设置</button>
+                            <button class="action-btn edit">编辑</button>
+                            <button class="action-btn enable">启用</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="agent-settings-tab" class="tab-content">
+                <div class="settings-placeholder">
+                    <div class="placeholder-icon">⚙️</div>
+                    <p>请从上方代理列表中选择代理进行独立设置</p>
+                    <button class="view-more-btn" data-action="open-agent-settings">选择代理 ></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 代理独立设置弹窗 -->
+        <div id="agent-settings-modal" class="modal">
+            <div class="modal-overlay"></div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="agent-settings-title">代理设置</h2>
+                    <button class="modal-close" data-action="close-agent-settings">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"/>
+                            <line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="agent-settings-info">
+                        <div class="info-avatar">张</div>
+                        <div class="info-details">
+                            <div class="info-name">张明</div>
+                            <div class="info-phone">139****1234</div>
+                        </div>
+                    </div>
+                    
+                    <form id="agent-settings-form">
+                        <input type="hidden" id="settings-agent-id" value="">
+                        
+                        <div class="settings-section-title">推广奖励设置</div>
+                        <div class="reward-rules" id="agent-reward-rules">
+                            <div class="reward-rule">
+                                <div class="rule-range">0 - 10人</div>
+                                <div class="rule-amount">¥1.00/人</div>
+                                <div class="rule-actions">
+                                    <button type="button" class="rule-edit">编辑</button>
+                                    <button type="button" class="rule-delete">删除</button>
+                                </div>
+                            </div>
+                            <div class="reward-rule">
+                                <div class="rule-range">10 - 100人</div>
+                                <div class="rule-amount">¥2.00/人</div>
+                                <div class="rule-actions">
+                                    <button type="button" class="rule-edit">编辑</button>
+                                    <button type="button" class="rule-delete">删除</button>
+                                </div>
+                            </div>
+                            <div class="reward-rule">
+                                <div class="rule-range">100人以上</div>
+                                <div class="rule-amount">¥3.00/人</div>
+                                <div class="rule-actions">
+                                    <button type="button" class="rule-edit">编辑</button>
+                                    <button type="button" class="rule-delete">删除</button>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="add-rule-btn" data-action="add-agent-rule">+ 添加奖励规则</button>
+
+                        <div class="settings-section-title">电影卡销售金额设置</div>
+                        <div class="card-prices">
+                            <div class="card-price-item">
+                                <div class="card-type">年卡</div>
+                                <div class="card-price-input">
+                                    <span class="currency">¥</span>
+                                    <input type="number" value="199" id="year-price">
+                                </div>
+                            </div>
+                            <div class="card-price-item">
+                                <div class="card-type">月卡</div>
+                                <div class="card-price-input">
+                                    <span class="currency">¥</span>
+                                    <input type="number" value="99" id="month-price">
+                                </div>
+                            </div>
+                            <div class="card-price-item">
+                                <div class="card-type">次卡</div>
+                                <div class="card-price-input">
+                                    <span class="currency">¥</span>
+                                    <input type="number" value="9.9" id="times-price">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn cancel" data-action="close-agent-settings">取消</button>
+                    <button class="btn confirm" data-action="save-agent-settings">保存设置</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 电影卡管理页面 -->
+        <div id="card-management-page" class="page">
+            <div class="page-header">
+                <button class="back-btn" data-back>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                </button>
+                <h1>电影卡管理</h1>
+                <div></div>
+            </div>
+
+            <div class="card-stats">
+                <div class="card-stat unsold">
+                    <div class="stat-number" id="unsold-count">156</div>
+                    <div class="stat-text">未售</div>
+                </div>
+                <div class="card-stat sold">
+                    <div class="stat-number" id="sold-count">89</div>
+                    <div class="stat-text">已售</div>
+                </div>
+            </div>
+
+            <div class="card-list-section">
+                <div class="section-header">
+                    <h3 class="section-title">未售电影卡</h3>
+                    <a class="view-more-link" href="#" data-page="card-list-page">
+                        查看更多
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                            <polyline points="9 18 15 12 9 6"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="card-list" id="card-list-container"></div>
+            </div>
+        </div>
+
+        <!-- 电影卡列表页面 -->
+        <div id="card-list-page" class="page">
+            <div class="page-header">
+                <button class="back-btn" data-back>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                </button>
+                <h1>电影卡列表</h1>
+                <div></div>
+            </div>
+            
+            <div class="card-filter-bar">
+                <div class="filter-tabs">
+                    <button class="filter-tab active" data-filter="all">全部</button>
+                    <button class="filter-tab" data-filter="unsold">未售</button>
+                    <button class="filter-tab" data-filter="sold">已售</button>
+                </div>
+            </div>
+            
+            <div class="search-filter-section">
+                <div class="search-box">
+                    <input type="text" id="card-search-input" placeholder="搜索卡号">
+                    <button class="search-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="m21 21-4.35-4.35"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="date-filter">
+                    <label>售卡日期：</label>
+                    <input type="date" id="card-start-date">
+                    <span>至</span>
+                    <input type="date" id="card-end-date">
+                    <button class="filter-apply-btn" data-action="filter-cards">筛选</button>
+                </div>
+            </div>
+            
+            <div class="card-list-full" id="card-list-full"></div>
+        </div>
+
+        <!-- 标记已售弹窗 -->
+        <div id="mark-sold-modal" class="modal">
+            <div class="modal-overlay"></div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>标记已售</h2>
+                    <button class="modal-close" data-action="close-mark-sold">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"/>
+                            <line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="mark-sold-form">
+                        <div class="form-group">
+                            <label>卡号</label>
+                            <input type="text" id="sold-card-number" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>备注信息</label>
+                            <textarea id="sold-remark" placeholder="请输入备注信息（选填）"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn cancel" data-action="close-mark-sold">取消</button>
+                    <button class="btn confirm" data-action="confirm-mark-sold">确认</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 推广记录页面 -->
+        <div id="promotion-records-page" class="page">
+            <div class="page-header">
+                <button class="back-btn" data-back>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                </button>
+                <h1>推广记录</h1>
+                <button class="add-btn" data-action="show-add-promotion">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"/>
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="promotion-stats">
+                <div class="promotion-stat-card">
+                    <div class="stat-value" id="month-promotion">12</div>
+                    <div class="stat-label">本月推广人数</div>
+                </div>
+                <div class="promotion-stat-card">
+                    <div class="stat-value" id="total-promotion">256</div>
+                    <div class="stat-label">已推广人数</div>
+                </div>
+            </div>
+
+            <div class="promotion-list-section">
+                <div class="section-header">
+                    <h3 class="section-title">推广记录</h3>
+                    <a class="view-more-link" href="#" data-page="promotion-list-page">
+                        查看更多
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                            <polyline points="9 18 15 12 9 6"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="promotion-list" id="promotion-list-container"></div>
+            </div>
+        </div>
+
+        <!-- 推广记录列表页面 -->
+        <div id="promotion-list-page" class="page">
+            <div class="page-header">
+                <button class="back-btn" data-back>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                </button>
+                <h1>推广记录列表</h1>
+                <div></div>
+            </div>
+            
+            <div class="search-filter-section">
+                <div class="search-box">
+                    <input type="text" id="promotion-search-input" placeholder="搜索推广人/手机号">
+                    <button class="search-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="m21 21-4.35-4.35"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="date-filter">
+                    <label>推广时间：</label>
+                    <input type="date" id="promotion-start-date">
+                    <span>至</span>
+                    <input type="date" id="promotion-end-date">
+                    <button class="filter-apply-btn" data-action="filter-promotions">筛选</button>
+                </div>
+            </div>
+            
+            <div class="promotion-list-full" id="promotion-list-full"></div>
+        </div>
+
+        <!-- 添加推广弹窗 -->
+        <div id="add-promotion-modal" class="modal">
+            <div class="modal-overlay"></div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>添加推广</h2>
+                    <button class="modal-close" data-action="close-add-promotion">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"/>
+                            <line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="add-promotion-form">
+                        <div class="form-group">
+                            <label>被推广人手机号</label>
+                            <input type="tel" id="promoted-phone" placeholder="请输入手机号" maxlength="11">
+                        </div>
+                        <div class="form-group">
+                            <label>备注信息</label>
+                            <textarea id="promoted-remark" placeholder="请输入备注信息（选填）"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn cancel" data-action="close-add-promotion">取消</button>
+                    <button class="btn confirm" data-action="confirm-add-promotion">确认添加</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 销售管理页面 -->
+        <div id="sales-management-page" class="page">
+            <div class="page-header">
+                <button class="back-btn" data-back>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                </button>
+                <h1>销售管理</h1>
+                <button class="add-btn" data-action="create-sales-order">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"/>
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="sales-stats">
+                <div class="sales-stat-card">
+                    <div class="stat-value" id="total-sales-orders">0</div>
+                    <div class="stat-label">总订单数</div>
+                </div>
+            </div>
+
+            <div class="sales-list-section">
+                <div class="section-header">
+                    <h3 class="section-title">销售记录</h3>
+                    <a class="view-more-link" href="#" data-page="sales-list-page">
+                        查看更多
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                            <polyline points="9 18 15 12 9 6"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="sales-list" id="sales-list-container"></div>
+            </div>
+        </div>
+
+        <!-- 销售记录列表页面 -->
+        <div id="sales-list-page" class="page">
+            <div class="page-header">
+                <button class="back-btn" data-back>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                </button>
+                <h1>销售记录列表</h1>
+                <div></div>
+            </div>
+
+            <div class="sales-filter-bar">
+                <div class="filter-tabs">
+                    <button class="filter-tab active" data-filter="all">全部</button>
+                    <button class="filter-tab" data-filter="pending">待支付</button>
+                    <button class="filter-tab" data-filter="shipped">已发货</button>
+                    <button class="filter-tab" data-filter="received">已收货</button>
+                    <button class="filter-tab" data-filter="completed">已完成</button>
+                </div>
+            </div>
+
+            <div class="sales-list-full" id="sales-list-full"></div>
+        </div>
+
+        <!-- 销售订单详情弹窗 -->
+        <div id="sales-detail-modal" class="modal">
+            <div class="modal-overlay"></div>
+            <div class="modal-content modal-large">
+                <div class="modal-header">
+                    <h2>订单详情</h2>
+                    <button class="modal-close" data-action="close-sales-detail">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"/>
+                            <line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="sales-detail-info" id="sales-detail-info"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 销售电影卡购买页面 -->
+        <div id="sales-card-page" class="page">
+            <div class="page-header">
+                <button class="back-btn" data-back>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                </button>
+                <h1>选择电影卡</h1>
+                <div></div>
+            </div>
+
+            <div class="sales-card-list" id="sales-card-list"></div>
+        </div>
+
+        <!-- 销售订单确认弹窗 -->
+        <div id="sales-confirm-modal" class="modal">
+            <div class="modal-overlay"></div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>确认订单</h2>
+                    <button class="modal-close" data-action="close-sales-confirm">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"/>
+                            <line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="sales-confirm-info" id="sales-confirm-info"></div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn cancel" data-action="close-sales-confirm">取消</button>
+                    <button class="btn confirm" data-action="submit-sales">确认订单</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 支付二维码弹窗 -->
+        <div id="payment-qrcode-modal" class="modal">
+            <div class="modal-overlay"></div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>支付二维码</h2>
+                    <button class="modal-close" data-action="close-qrcode">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"/>
+                            <line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="qrcode-container">
+                        <div class="qrcode-placeholder">
+                            <div class="qrcode-icon">📱</div>
+                            <p class="qrcode-text">请使用手机扫描二维码支付</p>
+                            <p class="qrcode-amount" id="qrcode-amount">¥0.00</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn confirm" data-action="confirm-payment">已完成支付</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 采购管理页面 -->
+        <div id="purchase-management-page" class="page">
+            <div class="page-header">
+                <button class="back-btn" data-back>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                </button>
+                <h1>采购管理</h1>
+                <button class="add-btn" data-action="show-purchase-list">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"/>
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="purchase-stats">
+                <div class="purchase-stat-card">
+                    <div class="stat-value" id="total-orders">12</div>
+                    <div class="stat-label">总订单数</div>
+                </div>
+            </div>
+
+            <div class="purchase-list-section">
+                <div class="section-header">
+                    <h3 class="section-title">采购记录</h3>
+                    <a class="view-more-link" href="#" data-page="purchase-list-page">
+                        查看更多
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                            <polyline points="9 18 15 12 9 6"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="purchase-list" id="purchase-list-container"></div>
+            </div>
+        </div>
+
+        <!-- 采购记录列表页面 -->
+        <div id="purchase-list-page" class="page">
+            <div class="page-header">
+                <button class="back-btn" data-back>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                </button>
+                <h1>采购记录列表</h1>
+                <div></div>
+            </div>
+
+            <div class="purchase-filter-bar">
+                <div class="filter-tabs">
+                    <button class="filter-tab active" data-filter="all">全部</button>
+                    <button class="filter-tab" data-filter="pending">待支付</button>
+                    <button class="filter-tab" data-filter="shipped">已发货</button>
+                    <button class="filter-tab" data-filter="received">已收货</button>
+                    <button class="filter-tab" data-filter="completed">已完成</button>
+                </div>
+            </div>
+
+            <div class="purchase-list-full" id="purchase-list-full"></div>
+        </div>
+
+        <!-- 采购记录详情弹窗 -->
+        <div id="purchase-detail-modal" class="modal">
+            <div class="modal-overlay"></div>
+            <div class="modal-content modal-large">
+                <div class="modal-header">
+                    <h2>订单详情</h2>
+                    <button class="modal-close" data-action="close-purchase-detail">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"/>
+                            <line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="purchase-detail-info" id="purchase-detail-info"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 采购详情页面 -->
+        <div id="purchase-detail-page" class="page">
+            <div class="page-header">
+                <button class="back-btn" data-back>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                </button>
+                <h1>订单详情</h1>
+                <div></div>
+            </div>
+            
+            <div class="purchase-detail-content" id="purchase-detail-content"></div>
+        </div>
+        
+        <!-- 电影卡购买列表页面 -->
+        <div id="purchase-card-page" class="page">
+            <div class="page-header">
+                <button class="back-btn" data-back>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                </button>
+                <h1>电影卡购买</h1>
+                <div></div>
+            </div>
+
+            <div class="purchase-card-list" id="purchase-card-list"></div>
+        </div>
+
+        <!-- 电影卡购买确认弹窗 -->
+        <div id="purchase-confirm-modal" class="modal">
+            <div class="modal-overlay"></div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>确认购买</h2>
+                    <button class="modal-close" data-action="close-purchase-confirm">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"/>
+                            <line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="purchase-confirm-info" id="purchase-confirm-info"></div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn cancel" data-action="close-purchase-confirm">取消</button>
+                    <button class="btn confirm" data-action="submit-purchase">立即购买</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 我的电影卡记录页面 -->
+        <div id="my-cards-page" class="page">
+            <div class="page-header">
+                <button class="back-btn" data-back>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                </button>
+                <h1>我的电影卡</h1>
+                <div></div>
+            </div>
+
+            <div class="my-cards-list" id="my-cards-list"></div>
+        </div>
+
+        <!-- 个人中心页面 -->
+        <div id="profile-page" class="page">
+            <div class="page-header">
+                <button class="back-btn" data-back>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                </button>
+                <h1>个人中心</h1>
+                <div></div>
+            </div>
+            
+            <!-- 个人信息卡片 -->
+            <div class="profile-info-card">
+                <div class="profile-avatar">
+                    <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=professional%20business%20portrait%20avatar&image_size=square" alt="头像">
+                </div>
+                <div class="profile-details">
+                    <div class="profile-name">王经理</div>
+                    <div class="profile-phone">138****8888</div>
+                </div>
+            </div>
+            
+            <!-- 个人中心菜单 -->
+            <div class="profile-menu-section">
+                <div class="profile-menu-item" data-action="balance-detail">
+                    <div class="menu-icon-wrapper">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="1" x2="12" y2="23"/>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                        </svg>
+                    </div>
+                    <div class="menu-text">
+                        <div class="menu-title">账户余额</div>
+                        <div class="menu-subtitle">¥12,580.00</div>
+                    </div>
+                    <svg class="menu-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="9 18 15 12 9 6"/>
+                    </svg>
+                </div>
+                <div class="profile-menu-item" data-action="commission-detail">
+                    <div class="menu-icon-wrapper">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                        </svg>
+                    </div>
+                    <div class="menu-text">
+                        <div class="menu-title">我的佣金</div>
+                        <div class="menu-subtitle">本月 ¥12,580.00</div>
+                    </div>
+                    <svg class="menu-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="9 18 15 12 9 6"/>
+                    </svg>
+                </div>
+                <div class="profile-menu-item" data-action="recharge">
+                    <div class="menu-icon-wrapper">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+                            <line x1="1" y1="10" x2="23" y2="10"/>
+                        </svg>
+                    </div>
+                    <div class="menu-text">
+                        <div class="menu-title">账户充值</div>
+                        <div class="menu-subtitle">快速充值</div>
+                    </div>
+                    <svg class="menu-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="9 18 15 12 9 6"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 余额详情页面 -->
+        <div id="balance-detail-page" class="page">
+            <div class="page-header">
+                <button class="back-btn" data-back>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                </button>
+                <h1>余额明细</h1>
+                <div></div>
+            </div>
+            
+            <!-- 余额信息卡片 -->
+            <div class="balance-info-card">
+                <div class="balance-info-content">
+                    <div class="balance-label">账户余额</div>
+                    <div class="balance-amount">¥12,580.00</div>
+                </div>
+                <button class="balance-recharge-btn" data-action="recharge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"/>
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                    </svg>
+                    充值
+                </button>
+            </div>
+            
+            <!-- 余额明细列表 -->
+            <div class="detail-list-section">
+                <div class="section-title">收支明细</div>
+                <div class="balance-detail-list" id="balance-detail-list"></div>
+            </div>
+        </div>
+        
+        <!-- 佣金详情页面 -->
+        <div id="commission-detail-page" class="page">
+            <div class="page-header">
+                <button class="back-btn" data-back>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                </button>
+                <h1>佣金明细</h1>
+                <div></div>
+            </div>
+            
+            <!-- 佣金信息卡片 -->
+            <div class="commission-info-card">
+                <div class="commission-info-row">
+                    <div class="info-item">
+                        <div class="info-label">本月佣金</div>
+                        <div class="info-value">¥12,580.00</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">累计佣金</div>
+                        <div class="info-value">¥56,800.00</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 佣金明细列表 -->
+            <div class="detail-list-section">
+                <div class="section-title">佣金记录</div>
+                <div class="commission-detail-list" id="commission-detail-list"></div>
+            </div>
+        </div>
+        
+        <!-- 充值页面 -->
+        <div id="recharge-page" class="page">
+            <div class="page-header">
+                <button class="back-btn" data-back>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                </button>
+                <h1>账户充值</h1>
+                <div></div>
+            </div>
+            
+            <!-- 当前余额显示 -->
+            <div class="current-balance-section">
+                <div class="balance-label">当前余额</div>
+                <div class="balance-value">¥12,580.00</div>
+            </div>
+            
+            <!-- 充值选项 -->
+            <div class="recharge-options-section">
+                <div class="section-title">选择充值金额</div>
+                <div class="recharge-options-grid">
+                    <div class="recharge-option" data-amount="100">
+                        <div class="recharge-amount">¥100</div>
+                    </div>
+                    <div class="recharge-option" data-amount="200">
+                        <div class="recharge-amount">¥200</div>
+                    </div>
+                    <div class="recharge-option" data-amount="500">
+                        <div class="recharge-amount">¥500</div>
+                    </div>
+                    <div class="recharge-option" data-amount="1000">
+                        <div class="recharge-amount">¥1000</div>
+                    </div>
+                    <div class="recharge-option" data-amount="2000">
+                        <div class="recharge-amount">¥2000</div>
+                    </div>
+                    <div class="recharge-option" data-amount="5000">
+                        <div class="recharge-amount">¥5000</div>
+                    </div>
+                </div>
+                
+                <!-- 自定义金额 -->
+                <div class="custom-recharge-section">
+                    <div class="custom-recharge-label">自定义金额</div>
+                    <div class="custom-recharge-input-wrapper">
+                        <span class="currency-symbol">¥</span>
+                        <input type="number" class="custom-recharge-input" id="custom-recharge-input" placeholder="请输入金额" min="1">
+                    </div>
+                </div>
+                
+                <!-- 确认充值按钮 -->
+                <button class="confirm-recharge-btn" id="confirm-recharge-btn">确认充值</button>
+            </div>
+            
+            <!-- 充值记录 -->
+            <div class="detail-list-section">
+                <div class="section-title">充值记录</div>
+                <div class="recharge-record-list" id="recharge-record-list"></div>
+            </div>
+        </div>
+
+        <!-- 创建/编辑代理弹窗 -->
+        <div id="agent-modal" class="modal">
+            <div class="modal-overlay"></div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="modal-title">创建代理</h2>
+                    <button class="modal-close" data-action="close-modal">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"/>
+                            <line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="agent-form">
+                        <div class="form-group">
+                            <label>账号</label>
+                            <input type="text" name="username" placeholder="请输入账号">
+                        </div>
+                        <div class="form-group">
+                            <label>密码</label>
+                            <input type="password" name="password" placeholder="请输入密码">
+                        </div>
+                        <div class="form-group">
+                            <label>手机号</label>
+                            <input type="tel" name="phone" placeholder="请输入手机号">
+                        </div>
+                        <div class="form-group">
+                            <label>姓名</label>
+                            <input type="text" name="name" placeholder="请输入姓名">
+                        </div>
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="allowSubAgent">
+                                <span>允许开通下级代理</span>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>备注</label>
+                            <textarea name="remark" placeholder="请输入备注"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn cancel" data-action="close-modal">取消</button>
+                    <button class="btn confirm" data-action="save-agent">确定</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 创建/编辑奖励规则弹窗 -->
+        <div id="reward-modal" class="modal">
+            <div class="modal-overlay"></div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="reward-modal-title">添加奖励规则</h2>
+                    <button class="modal-close" data-action="close-reward-modal">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"/>
+                            <line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="reward-form">
+                        <input type="hidden" name="ruleIndex" id="rule-index" value="-1">
+                        <div class="form-group">
+                            <label>最小推广人数</label>
+                            <input type="number" name="minCount" id="min-count" placeholder="请输入最小人数" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="unlimited-max" name="unlimitedMax">
+                                <span>不设上限</span>
+                            </label>
+                        </div>
+                        <div class="form-group" id="max-count-group">
+                            <label>最大推广人数</label>
+                            <input type="number" name="maxCount" id="max-count" placeholder="请输入最大人数" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label>每人奖励金额（元）</label>
+                            <input type="number" name="amount" id="reward-amount" placeholder="请输入奖励金额" min="0" step="0.01">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn cancel" data-action="close-reward-modal">取消</button>
+                    <button class="btn confirm" data-action="save-reward">保存</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 结算管理页面 -->
+        <div id="settlement-management-page" class="page">
+            <div class="page-header">
+                <button class="back-btn" data-back>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                </button>
+                <h1>结算管理</h1>
+                <button class="add-btn" data-action="settlement-agent-list">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"/>
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="settlement-stats">
+                <div class="settlement-stat-card">
+                    <div class="stat-value">¥8,560</div>
+                    <div class="stat-label">本月结算</div>
+                </div>
+                <div class="settlement-stat-card">
+                    <div class="stat-value">¥56,280</div>
+                    <div class="stat-label">已结算</div>
+                </div>
+            </div>
+
+            <div class="settlement-list-section">
+                <div class="section-header">
+                    <h3 class="section-title">结算记录</h3>
+                    <a class="view-more-link" href="#" data-page="settlement-list-page">
+                        查看更多
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                            <polyline points="9 18 15 12 9 6"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="settlement-list" id="settlement-list-container"></div>
+            </div>
+        </div>
+
+        <!-- 结算记录列表页面 -->
+        <div id="settlement-list-page" class="page">
+            <div class="page-header">
+                <button class="back-btn" data-back>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                </button>
+                <h1>结算记录列表</h1>
+                <div></div>
+            </div>
+
+            <div class="settlement-filter-bar">
+                <div class="filter-tabs">
+                    <button class="filter-tab active" data-filter="all">全部</button>
+                    <button class="filter-tab" data-filter="2024-05">2024-05</button>
+                    <button class="filter-tab" data-filter="2024-04">2024-04</button>
+                    <button class="filter-tab" data-filter="2024-03">2024-03</button>
+                </div>
+            </div>
+
+            <div class="settlement-list-full" id="settlement-list-full"></div>
+        </div>
+
+        <!-- 结算详情弹窗 -->
+        <div id="settlement-detail-modal" class="modal">
+            <div class="modal-overlay"></div>
+            <div class="modal-content modal-large">
+                <div class="modal-header">
+                    <h2>结算详情</h2>
+                    <button class="modal-close" data-action="close-settlement-detail">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"/>
+                            <line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="settlement-detail-info" id="settlement-detail-info"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 选择下级代理人结算页面 -->
+        <div id="settlement-agent-page" class="page">
+            <div class="page-header">
+                <button class="back-btn" data-back>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                </button>
+                <h1>选择代理人</h1>
+                <div></div>
+            </div>
+
+            <div class="settlement-agent-list" id="settlement-agent-list"></div>
+        </div>
+
+        <!-- 结算确认弹窗 -->
+        <div id="settlement-confirm-modal" class="modal">
+            <div class="modal-overlay"></div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>确认结算</h2>
+                    <button class="modal-close" data-action="close-settlement-confirm">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"/>
+                            <line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="settlement-confirm-info" id="settlement-confirm-info">
+                        <div class="form-group">
+                            <label>结算日期</label>
+                            <input type="date" id="settlement-date">
+                        </div>
+                        <div class="form-group">
+                            <label>结算金额</label>
+                            <input type="number" id="settlement-amount" placeholder="请输入结算金额" min="0" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label>备注</label>
+                            <textarea id="settlement-remark" placeholder="请输入备注"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn cancel" data-action="close-settlement-confirm">取消</button>
+                    <button class="btn confirm" data-action="submit-settlement">确认结算</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 个人中心页面 -->
+        <div id="profile-page" class="page">
+            <div class="page-header">
+                <button class="back-btn" data-back>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                </button>
+                <h1>个人中心</h1>
+                <div></div>
+            </div>
+
+            <div class="profile-info-card">
+                <div class="profile-avatar">
+                    <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=professional%20business%20portrait%20avatar&image_size=square" alt="头像">
+                </div>
+                <div class="profile-details">
+                    <div class="profile-name">王经理</div>
+                    <div class="profile-phone">138****8888</div>
+                </div>
+            </div>
+
+            <div class="profile-balance-section">
+                <div class="balance-header">
+                    <h3 class="section-title">账户余额</h3>
+                    <a class="view-more-link" href="#" data-page="balance-detail-page">
+                        查看明细
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                            <polyline points="9 18 15 12 9 6"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="balance-card">
+                    <div class="balance-amount">¥12,580.00</div>
+                    <div class="balance-actions">
+                        <button class="balance-btn recharge" data-action="show-recharge">充值</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-commission-section">
+                <div class="commission-header">
+                    <h3 class="section-title">佣金</h3>
+                    <a class="view-more-link" href="#" data-page="commission-detail-page">
+                        查看明细
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                            <polyline points="9 18 15 12 9 6"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="commission-stats">
+                    <div class="commission-stat">
+                        <div class="stat-value">¥8,560</div>
+                        <div class="stat-label">本月佣金</div>
+                    </div>
+                    <div class="commission-stat">
+                        <div class="stat-value">¥56,280</div>
+                        <div class="stat-label">累计佣金</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 余额明细页面 -->
+        <div id="balance-detail-page" class="page">
+            <div class="page-header">
+                <button class="back-btn" data-back>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                </button>
+                <h1>余额明细</h1>
+                <div></div>
+            </div>
+
+            <div class="balance-detail-list" id="balance-detail-list"></div>
+        </div>
+
+        <!-- 佣金明细页面 -->
+        <div id="commission-detail-page" class="page">
+            <div class="page-header">
+                <button class="back-btn" data-back>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                </button>
+                <h1>佣金明细</h1>
+                <div></div>
+            </div>
+
+            <div class="commission-detail-list" id="commission-detail-list"></div>
+        </div>
+
+        <!-- 充值弹窗 -->
+        <div id="recharge-modal" class="modal">
+            <div class="modal-overlay"></div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>账户充值</h2>
+                    <button class="modal-close" data-action="close-recharge">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"/>
+                            <line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="recharge-options">
+                        <div class="recharge-option selected" data-amount="100">¥100</div>
+                        <div class="recharge-option" data-amount="200">¥200</div>
+                        <div class="recharge-option" data-amount="500">¥500</div>
+                        <div class="recharge-option" data-amount="1000">¥1000</div>
+                        <div class="recharge-option" data-amount="2000">¥2000</div>
+                        <div class="recharge-option" data-amount="5000">¥5000</div>
+                    </div>
+                    <div class="form-group">
+                        <label>自定义金额</label>
+                        <input type="number" id="custom-recharge-amount" placeholder="输入自定义金额" min="1" step="1">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn cancel" data-action="close-recharge">取消</button>
+                    <button class="btn confirm" data-action="confirm-recharge">立即充值</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 充值记录页面 -->
+        <div id="recharge-record-page" class="page">
+            <div class="page-header">
+                <button class="back-btn" data-back>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                </button>
+                <h1>充值记录</h1>
+                <div></div>
+            </div>
+
+            <div class="recharge-record-list" id="recharge-record-list"></div>
+        </div>
+
+        <!-- 消息列表页面 -->
+        <div id="message-list-page" class="page">
+            <div class="page-header">
+                <button class="back-btn" data-back>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </button>
+                <h1>消息中心</h1>
+                <div></div>
+            </div>
+
+            <div class="message-list" id="message-list"></div>
+        </div>
+
+        <!-- 电影卡详情页面 -->
+        <div id="card-detail-page" class="page">
+            <div class="page-header">
+                <button class="back-btn" data-back>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </button>
+                <h1>电影卡详情</h1>
+                <div></div>
+            </div>
+            
+            <div class="card-detail-content" id="card-detail-content"></div>
+        </div>
+
+        <!-- 消息详情弹窗 -->
+        <div id="message-detail-modal" class="modal">
+            <div class="modal-overlay"></div>
+            <div class="modal-content modal-large">
+                <div class="modal-header">
+                    <h2 id="message-detail-title">消息详情</h2>
+                    <button class="modal-close" data-action="close-message-detail">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="message-detail-info" id="message-detail-info"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
