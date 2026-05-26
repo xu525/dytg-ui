@@ -5102,6 +5102,98 @@ body {
 
 /* 经营账户明细列表样式 */
 .business-detail-list {
-    padding: 0 16px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.balance-detail-item {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+}
+
+.balance-detail-item:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.detail-left {
+    display: flex;
+    gap: 12px;
+    flex: 1;
+    min-width: 0;
+}
+
+.detail-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.detail-icon.plus {
+    background: rgba(46, 204, 113, 0.1);
+}
+
+.detail-icon.plus svg {
+    color: #2ecc71;
+    width: 20px;
+    height: 20px;
+}
+
+.detail-icon.minus {
+    background: rgba(231, 76, 60, 0.1);
+}
+
+.detail-icon.minus svg {
+    color: #e74c3c;
+    width: 20px;
+    height: 20px;
+}
+
+.detail-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.detail-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+}
+
+.detail-time {
+    font-size: 12px;
+    color: #999;
+}
+
+.detail-right {
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.detail-amount {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.detail-amount.plus {
+    color: #2ecc71;
+}
+
+.detail-amount.minus {
+    color: #e74c3c;
 }
 
