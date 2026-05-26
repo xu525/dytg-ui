@@ -851,6 +851,21 @@
             
             <!-- 个人中心菜单 -->
             <div class="profile-menu-section">
+                <div class="profile-menu-item" data-action="business-account">
+                    <div class="menu-icon-wrapper">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="4" width="20" height="16" rx="2"/>
+                            <path d="M6 8h.01M10 8h4M6 12h.01M10 12h4M6 16h.01M10 16h4"/>
+                        </svg>
+                    </div>
+                    <div class="menu-text">
+                        <div class="menu-title">经营账户</div>
+                        <div class="menu-subtitle">余额：¥25,680.00</div>
+                    </div>
+                    <svg class="menu-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="9 18 15 12 9 6"/>
+                    </svg>
+                </div>
                 <div class="profile-menu-item" data-action="balance-detail">
                     <div class="menu-icon-wrapper">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1003,6 +1018,118 @@
                     </a>
                 </div>
                 <div class="commission-detail-list" id="commission-detail-list"></div>
+            </div>
+        </div>
+        
+        <!-- 经营账户页面 -->
+        <div id="business-account-page" class="page">
+            <div class="page-header">
+                <button class="back-btn" data-back>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                </button>
+                <h1>经营账户</h1>
+                <div></div>
+            </div>
+            
+            <!-- 经营账户余额卡片 -->
+            <div class="business-balance-card">
+                <div class="business-balance-content">
+                    <div class="business-balance-label">经营账户余额</div>
+                    <div class="business-balance-amount" id="business-balance-amount">¥25,680.00</div>
+                </div>
+                <div class="business-action-btns">
+                    <button class="business-transfer-btn" data-action="business-transfer">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                            <polyline points="12 5 19 12 12 19"/>
+                        </svg>
+                        转入
+                    </button>
+                    <button class="business-withdraw-btn" data-action="business-withdraw">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="19" y1="12" x2="5" y2="12"/>
+                            <polyline points="12 5 5 12 12 19"/>
+                        </svg>
+                        提现
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 经营账户统计 -->
+            <div class="business-stats-section">
+                <div class="business-stat-card">
+                    <div class="stat-value" id="business-month-revenue">¥45,800.00</div>
+                    <div class="stat-label">本月营收</div>
+                </div>
+                <div class="business-stat-card">
+                    <div class="stat-value" id="business-month-expense">¥20,120.00</div>
+                    <div class="stat-label">本月支出</div>
+                </div>
+                <div class="business-stat-card">
+                    <div class="stat-value" id="business-total-profit">¥125,600.00</div>
+                    <div class="stat-label">累计收益</div>
+                </div>
+            </div>
+            
+            <!-- 经营账户明细 -->
+            <div class="detail-list-section">
+                <div class="section-header">
+                    <h3 class="section-title">交易记录</h3>
+                    <a class="view-more-link" href="#" data-page="business-record-page">
+                        查看更多
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                            <polyline points="9 18 15 12 9 6"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="business-detail-list" id="business-detail-list"></div>
+            </div>
+        </div>
+        
+        <!-- 经营账户提现页面 -->
+        <div id="business-withdraw-page" class="page">
+            <div class="page-header">
+                <button class="back-btn" data-back>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                </button>
+                <h1>经营账户提现</h1>
+                <div></div>
+            </div>
+            
+            <div class="withdraw-info-card">
+                <div class="withdraw-info-label">可提现余额</div>
+                <div class="withdraw-info-amount" id="business-withdraw-available">¥25,680.00</div>
+            </div>
+            
+            <div class="withdraw-form">
+                <div class="form-group">
+                    <label>提现金额</label>
+                    <div class="withdraw-amount-input-wrapper">
+                        <span class="currency-symbol">¥</span>
+                        <input type="number" id="business-withdraw-amount" placeholder="请输入提现金额" min="1">
+                    </div>
+                    <div class="withdraw-amount-tips">
+                        <span class="withdraw-all" data-action="business-withdraw-all">全部提现</span>
+                        <span class="withdraw-min">最低提现 ¥1.00</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>到账账户</label>
+                    <select id="business-withdraw-account">
+                        <option value="bank">中国工商银行 (6222 **** **** 8888)</option>
+                        <option value="alipay">支付宝 (138****8888)</option>
+                        <option value="wechat">微信 (138****8888)</option>
+                    </select>
+                </div>
+                <div class="withdraw-fee-tips">
+                    <span>手续费：<strong id="business-withdraw-fee">¥0.00</strong></span>
+                    <span>实际到账：<strong id="business-withdraw-real">¥0.00</strong></span>
+                </div>
+                <button class="btn full confirm-withdraw-btn" data-action="confirm-business-withdraw">确认提现</button>
             </div>
         </div>
         

@@ -4947,3 +4947,161 @@ body {
     border-radius: 2px 2px 0 0;
 }
 
+/* 经营账户样式 */
+.business-balance-card {
+    margin: 16px;
+    padding: 24px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 16px;
+    box-shadow: var(--shadow-md);
+}
+
+.business-balance-content {
+    margin-bottom: 16px;
+}
+
+.business-balance-label {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 8px;
+}
+
+.business-balance-amount {
+    font-size: 36px;
+    font-weight: 700;
+    color: white;
+}
+
+.business-action-btns {
+    display: flex;
+    gap: 12px;
+}
+
+.business-transfer-btn,
+.business-withdraw-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 12px 16px;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.business-transfer-btn:hover,
+.business-withdraw-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+}
+
+.business-transfer-btn svg,
+.business-withdraw-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+.business-stats-section {
+    display: flex;
+    gap: 12px;
+    padding: 0 16px 16px;
+}
+
+.business-stat-card {
+    flex: 1;
+    background: white;
+    border-radius: 12px;
+    padding: 16px 12px;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+}
+
+.business-stat-card .stat-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 4px;
+}
+
+.business-stat-card .stat-label {
+    font-size: 12px;
+    color: var(--text-light);
+}
+
+/* 提现金额输入样式 */
+.withdraw-amount-input-wrapper {
+    display: flex;
+    align-items: center;
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    padding: 0 16px;
+    background: white;
+}
+
+.currency-symbol {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-right: 8px;
+}
+
+.withdraw-amount-input-wrapper input {
+    flex: 1;
+    border: none;
+    padding: 14px 0;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-dark);
+    outline: none;
+}
+
+.withdraw-amount-input-wrapper input::placeholder {
+    color: var(--text-muted);
+}
+
+.withdraw-amount-tips {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+}
+
+.withdraw-all {
+    color: var(--primary-color);
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.withdraw-min {
+    color: var(--text-light);
+    font-size: 13px;
+}
+
+.withdraw-fee-tips {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: var(--bg-light);
+    border-radius: 10px;
+    margin-bottom: 16px;
+}
+
+.withdraw-fee-tips span {
+    font-size: 13px;
+    color: var(--text-light);
+}
+
+.withdraw-fee-tips strong {
+    color: var(--primary-color);
+}
+
+/* 经营账户明细列表样式 */
+.business-detail-list {
+    padding: 0 16px;
+}
+

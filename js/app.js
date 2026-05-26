@@ -5,6 +5,17 @@ let rewardRules = [
     { min: 100, max: null, amount: 3 }
 ];
 
+// 经营账户数据
+let businessBalance = 25680.00;
+let businessWithdrawRecords = [];
+let businessRecords = [
+    { id: 1, title: '电影卡销售收入', amount: 2800.00, type: 'plus', time: '2024-05-25 14:30', typeName: '收入' },
+    { id: 2, title: '提现到银行卡', amount: -5000.00, type: 'minus', time: '2024-05-24 10:15', typeName: '提现' },
+    { id: 3, title: '推广佣金收入', amount: 1200.00, type: 'plus', time: '2024-05-23 16:45', typeName: '收入' },
+    { id: 4, title: '电影卡采购支出', amount: -8000.00, type: 'minus', time: '2024-05-22 09:20', typeName: '支出' },
+    { id: 5, title: '系统结算收入', amount: 5600.00, type: 'plus', time: '2024-05-21 17:00', typeName: '收入' }
+];
+
 
 document.addEventListener('DOMContentLoaded', () => {
     initPageNavigation();
@@ -66,6 +77,10 @@ function navigateTo(pageId) {
         renderRechargeRecordList();
     } else if (pageId === 'purchase-detail-page') {
         renderPurchaseDetail();
+    } else if (pageId === 'business-account-page') {
+        renderBusinessAccountPage();
+    } else if (pageId === 'business-withdraw-page') {
+        initBusinessWithdrawPage();
     }
 }
 
@@ -3068,6 +3083,45 @@ function initProfile() {
     if (reviewOverlay) {
         reviewOverlay.addEventListener('click', () => closeWithdrawReviewModal());
     }
+    
+    // 经营账户入口
+    const businessAccountBtn = document.querySelector('[data-action="business-account"]');
+    if (businessAccountBtn) {
+        businessAccountBtn.addEventListener('click', () => navigateTo('business-account-page'));
+    }
+    
+    // 经营账户提现按钮
+    const businessWithdrawBtn = document.querySelector('[data-action="business-withdraw"]');
+    if (businessWithdrawBtn) {
+        businessWithdrawBtn.addEventListener('click', () => {
+            navigateTo('business-withdraw-page');
+            initBusinessWithdrawPage();
+        });
+    }
+    
+    // 经营账户提现确认
+    const confirmBusinessWithdrawBtn = document.querySelector('[data-action="confirm-business-withdraw"]');
+    if (confirmBusinessWithdrawBtn) {
+        confirmBusinessWithdrawBtn.addEventListener('click', () => confirmBusinessWithdraw());
+    }
+    
+    // 经营账户全部提现按钮
+    const businessWithdrawAllBtn = document.querySelector('[data-action="business-withdraw-all"]');
+    if (businessWithdrawAllBtn) {
+        businessWithdrawAllBtn.addEventListener('click', () => {
+            const amountInput = document.getElementById('business-withdraw-amount');
+            if (amountInput) {
+                amountInput.value = businessBalance.toFixed(2);
+                updateBusinessWithdrawSummary();
+            }
+        });
+    }
+    
+    // 经营账户金额输入监听
+    const businessAmountInput = document.getElementById('business-withdraw-amount');
+    if (businessAmountInput) {
+        businessAmountInput.addEventListener('input', updateBusinessWithdrawSummary);
+    }
 }
 
 // 初始化充值页面
@@ -3570,6 +3624,135 @@ function closeMessageDetailModal() {
     const modal = document.getElementById('message-detail-modal');
     modal.classList.remove('active');
     document.body.style.overflow = '';
+}
+
+// 渲染经营账户页面
+function renderBusinessAccountPage() {
+    const balanceEl = document.getElementById('business-balance-amount');
+    if (balanceEl) {
+        balanceEl.textContent = `¥${businessBalance.toLocaleString('zh-CN', { minimumFractionDigits: 2 })}`;
+    }
+    
+    renderBusinessDetailList();
+}
+
+// 渲染经营账户明细列表
+function renderBusinessDetailList() {
+    const container = document.getElementById('business-detail-list');
+    if (!container) return;
+    
+    container.innerHTML = businessRecords.map(record => `
+        <div class="balance-detail-item">
+            <div class="detail-left">
+                <div class="detail-icon ${record.type === 'plus' ? 'plus' : 'minus'}">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        ${record.type === 'plus' 
+                            ? '<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>' 
+                            : '<line x1="5" y1="12" x2="19" y2="12"/>'}
+                    </svg>
+                </div>
+                <div class="detail-info">
+                    <div class="detail-title">${record.title}</div>
+                    <div class="detail-time">${record.time}</div>
+                </div>
+            </div>
+            <div class="detail-right">
+                <div class="detail-amount ${record.type === 'plus' ? 'plus' : 'minus'}">
+                    ${record.type === 'plus' ? '+' : ''}¥${Math.abs(record.amount).toFixed(2)}
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+// 初始化经营账户提现页面
+function initBusinessWithdrawPage() {
+    const amountInput = document.getElementById('business-withdraw-amount');
+    if (amountInput) {
+        amountInput.value = '';
+    }
+    
+    updateBusinessWithdrawAvailable();
+    updateBusinessWithdrawSummary();
+}
+
+// 更新可提现余额显示
+function updateBusinessWithdrawAvailable() {
+    const el = document.getElementById('business-withdraw-available');
+    if (el) {
+        el.textContent = `¥${businessBalance.toLocaleString('zh-CN', { minimumFractionDigits: 2 })}`;
+    }
+}
+
+// 更新提现摘要信息
+function updateBusinessWithdrawSummary() {
+    const amountInput = document.getElementById('business-withdraw-amount');
+    const amount = parseFloat(amountInput?.value) || 0;
+    const fee = Math.round(amount * 0.006 * 100) / 100;
+    const realAmount = Math.max(0, amount - fee);
+    
+    const feeEl = document.getElementById('business-withdraw-fee');
+    const realEl = document.getElementById('business-withdraw-real');
+    
+    if (feeEl) feeEl.textContent = `¥${fee.toFixed(2)}`;
+    if (realEl) realEl.textContent = `¥${realAmount.toFixed(2)}`;
+}
+
+// 确认经营账户提现
+function confirmBusinessWithdraw() {
+    const amountInput = document.getElementById('business-withdraw-amount');
+    const amount = parseFloat(amountInput?.value) || 0;
+    
+    if (amount < 1) {
+        alert('提现金额不能低于1元');
+        return;
+    }
+    
+    if (amount > businessBalance) {
+        alert(`提现金额不能超过可提现金额 ¥${businessBalance.toFixed(2)}`);
+        return;
+    }
+    
+    const accountSelect = document.getElementById('business-withdraw-account');
+    const accountValue = accountSelect?.value || 'bank';
+    const accountNames = { bank: '银行卡', alipay: '支付宝', wechat: '微信' };
+    const accountName = accountNames[accountValue] || '银行卡';
+    
+    const fee = Math.round(amount * 0.006 * 100) / 100;
+    const realAmount = amount - fee;
+    
+    const now = new Date();
+    const time = `${now.toISOString().split('T')[0]} ${now.toTimeString().slice(0, 5)}`;
+    const dateStr = now.toISOString().split('T')[0].replace(/-/g, '');
+    const orderNo = `JYTX${dateStr}${String(businessWithdrawRecords.length + 1).padStart(3, '0')}`;
+    
+    const record = {
+        id: businessWithdrawRecords.length + 1,
+        orderNo: orderNo,
+        agentName: currentAgent.name,
+        agentPhone: currentAgent.phone.slice(0, 3) + '****' + currentAgent.phone.slice(7),
+        amount: amount,
+        realAmount: realAmount,
+        method: accountName,
+        time: time,
+        status: 'pending',
+        remark: ''
+    };
+    
+    businessBalance -= amount;
+    businessWithdrawRecords.unshift(record);
+    businessRecords.unshift({
+        id: businessRecords.length + 1,
+        title: '经营账户提现',
+        amount: -amount,
+        type: 'minus',
+        time: time,
+        typeName: '提现'
+    });
+    
+    alert(`提现申请已提交\n提现金额：¥${amount.toFixed(2)}\n实际到账：¥${realAmount.toFixed(2)}`);
+    navigateTo('business-account-page');
+    renderBusinessAccountPage();
 }
 
 // 在 DOMContentLoaded 中调用新功能
