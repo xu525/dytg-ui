@@ -5197,3 +5197,130 @@ body {
     color: #e74c3c;
 }
 
+/* 卡销售页面样式 */
+.card-sales-stats {
+    padding: 20px 16px;
+}
+
+.card-sales-stat-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+}
+
+.stat-icon-wrapper {
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat-icon-wrapper svg {
+    width: 30px;
+    height: 30px;
+    color: white;
+}
+
+.card-sales-stat-card .stat-content {
+    flex: 1;
+}
+
+.card-sales-stat-card .stat-value {
+    font-size: 42px;
+    font-weight: 700;
+    color: white;
+    line-height: 1.2;
+}
+
+.card-sales-stat-card .stat-label {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.85);
+    margin-top: 4px;
+}
+
+.card-sales-list-section {
+    padding: 0 16px 16px;
+}
+
+.card-sales-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.card-sales-item {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+}
+
+.card-sales-item:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.card-sales-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.card-sales-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.card-number {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+.card-type {
+    padding: 4px 10px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 12px;
+}
+
+.card-sales-detail {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.detail-row {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.detail-label {
+    font-size: 12px;
+    color: #999;
+}
+
+.detail-value {
+    font-size: 14px;
+    color: #333;
+    font-weight: 500;
+}
+
+.detail-value.masked-phone {
+    font-family: monospace;
+    letter-spacing: 1px;
+}
+

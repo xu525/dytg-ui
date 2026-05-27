@@ -16,6 +16,18 @@ let businessRecords = [
     { id: 5, title: '系统结算收入', amount: 5600.00, type: 'plus', time: '2024-05-21 17:00', typeName: '收入' }
 ];
 
+// 卡销售数据
+let cardSalesData = [
+    { id: 1, cardNumber: 'VIP20240525001', cardType: '年卡', validity: '365天', salesTime: '2024-05-25 14:30', customerPhone: '13812345678' },
+    { id: 2, cardNumber: 'VIP20240525002', cardType: '月卡', validity: '30天', salesTime: '2024-05-25 13:20', customerPhone: '13987654321' },
+    { id: 3, cardNumber: 'VIP20240524003', cardType: '年卡', validity: '365天', salesTime: '2024-05-24 16:45', customerPhone: '13723456789' },
+    { id: 4, cardNumber: 'VIP20240524004', cardType: '次卡', validity: '10次', salesTime: '2024-05-24 11:30', customerPhone: '13634567890' },
+    { id: 5, cardNumber: 'VIP20240523005', cardType: '月卡', validity: '30天', salesTime: '2024-05-23 15:20', customerPhone: '13545678901' },
+    { id: 6, cardNumber: 'VIP20240523006', cardType: '年卡', validity: '365天', salesTime: '2024-05-23 10:15', customerPhone: '13456789012' },
+    { id: 7, cardNumber: 'VIP20240522007', cardType: '次卡', validity: '10次', salesTime: '2024-05-22 17:40', customerPhone: '13367890123' },
+    { id: 8, cardNumber: 'VIP20240522008', cardType: '年卡', validity: '365天', salesTime: '2024-05-22 09:25', customerPhone: '13278901234' }
+];
+
 
 document.addEventListener('DOMContentLoaded', () => {
     initPageNavigation();
@@ -81,6 +93,8 @@ function navigateTo(pageId) {
         renderBusinessAccountPage();
     } else if (pageId === 'business-withdraw-page') {
         initBusinessWithdrawPage();
+    } else if (pageId === 'card-sales-page') {
+        renderCardSalesPage();
     }
 }
 
@@ -3772,3 +3786,47 @@ document.addEventListener('DOMContentLoaded', () => {
     initProfile();
     initMessageModule();
 });
+
+// 渲染卡销售页面
+function renderCardSalesPage() {
+    // 更新销售总数
+    const totalSalesEl = document.getElementById('total-card-sales');
+    if (totalSalesEl) {
+        totalSalesEl.textContent = cardSalesData.length;
+    }
+    
+    // 渲染销售列表
+    const listContainer = document.getElementById('card-sales-list');
+    if (!listContainer) return;
+    
+    listContainer.innerHTML = cardSalesData.map(sale => {
+        // 掩码手机号
+        const maskedPhone = sale.customerPhone.slice(0, 3) + '****' + sale.customerPhone.slice(7);
+        
+        return `
+            <div class="card-sales-item">
+                <div class="card-sales-header">
+                    <div class="card-sales-info">
+                        <span class="card-number">${sale.cardNumber}</span>
+                        <span class="card-type">${sale.cardType}</span>
+                    </div>
+                </div>
+                <div class="card-sales-detail">
+                    <div class="detail-row">
+                        <span class="detail-label">使用期限</span>
+                        <span class="detail-value">${sale.validity}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">售卡时间</span>
+                        <span class="detail-value">${sale.salesTime}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">售卡对象</span>
+                        <span class="detail-value masked-phone">${maskedPhone}</span>
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+

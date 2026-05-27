@@ -44,6 +44,16 @@
 
             <div class="menu-section">
                 <div class="menu-grid">
+                    <div class="menu-item" data-page="card-sales">
+                        <div class="menu-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+                                <line x1="1" y1="10" x2="23" y2="10"/>
+                                <text x="12" y="14" font-size="6" text-anchor="middle" fill="currentColor">VIP</text>
+                            </svg>
+                        </div>
+                        <span class="menu-label">卡销售</span>
+                    </div>
                     <div class="menu-item" data-page="agent-management">
                         <div class="menu-icon">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -825,7 +835,44 @@
 
             <div class="my-cards-list" id="my-cards-list"></div>
         </div>
-
+        
+        <!-- 卡销售详情页面 -->
+        <div id="card-sales-page" class="page">
+            <div class="page-header">
+                <button class="back-btn" data-back>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                </button>
+                <h1>卡销售</h1>
+                <div></div>
+            </div>
+            
+            <!-- 销售统计卡片 -->
+            <div class="card-sales-stats">
+                <div class="card-sales-stat-card">
+                    <div class="stat-icon-wrapper sales-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+                            <line x1="1" y1="10" x2="23" y2="10"/>
+                        </svg>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="total-card-sales">186</div>
+                        <div class="stat-label">销售总数</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 销售列表 -->
+            <div class="card-sales-list-section">
+                <div class="section-header">
+                    <h3 class="section-title">销售记录</h3>
+                </div>
+                <div class="card-sales-list" id="card-sales-list"></div>
+            </div>
+        </div>
+        
         <!-- 个人中心页面 -->
         <div id="profile-page" class="page">
             <div class="page-header">
