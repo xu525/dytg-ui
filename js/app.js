@@ -3998,7 +3998,7 @@ let currentSaleDetail = null;
 function openSaleDetail(sale) {
     currentSaleDetail = sale;
     renderSaleDetailPage();
-    showPage('sale-detail');
+    navigateTo('sale-detail-page');
 }
 
 // 渲染销售详情页面
