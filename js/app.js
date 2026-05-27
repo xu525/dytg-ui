@@ -3785,8 +3785,187 @@ document.addEventListener('DOMContentLoaded', () => {
     initSettlementManagement();
     initProfile();
     initMessageModule();
+    initSellCard();
 });
-
+ 
+ // 售卡功能初始化
+ let selectedCardType = '年卡';
+ let selectedCardPrice = 299;
+ let selectedQuantity = 1;
+ 
+ function initSellCard() {
+     const sellCardBtn = document.querySelector('[data-action="show-sell-card"]');
+     if (sellCardBtn) {
+         sellCardBtn.addEventListener('click', openSellCardModal);
+     }
+     
+     const closeBtns = document.querySelectorAll('[data-action="close-sell-card"]');
+     closeBtns.forEach(btn => {
+         btn.addEventListener('click', closeSellCardModal);
+     });
+     
+     const modal = document.getElementById('sell-card-modal');
+     if (modal) {
+         modal.querySelector('.modal-overlay').addEventListener('click', closeSellCardModal);
+     }
+     
+     const cardTypeOptions = document.querySelectorAll('.card-type-option');
+     cardTypeOptions.forEach(option => {
+         option.addEventListener('click', () => selectCardType(option));
+     });
+     
+     const minusBtn = document.querySelector('[data-action="qty-minus"]');
+     const plusBtn = document.querySelector('[data-action="qty-plus"]');
+     if (minusBtn) {
+         minusBtn.addEventListener('click', decreaseQuantity);
+     }
+     if (plusBtn) {
+         plusBtn.addEventListener('click', increaseQuantity);
+     }
+     
+     const quantityInput = document.getElementById('sell-card-quantity');
+     if (quantityInput) {
+         quantityInput.addEventListener('input', updateCardTotal);
+     }
+     
+     const confirmBtn = document.querySelector('[data-action="confirm-sell-card"]');
+     if (confirmBtn) {
+         confirmBtn.addEventListener('click', confirmSellCard);
+     }
+ }
+ 
+ function openSellCardModal() {
+     const modal = document.getElementById('sell-card-modal');
+     if (!modal) return;
+     
+     resetSellCardForm();
+     modal.classList.add('active');
+     document.body.style.overflow = 'hidden';
+     
+     document.querySelector('.card-type-option[data-type="年卡"]').classList.add('selected');
+ }
+ 
+ function closeSellCardModal() {
+     const modal = document.getElementById('sell-card-modal');
+     if (modal) {
+         modal.classList.remove('active');
+         document.body.style.overflow = '';
+     }
+ }
+ 
+ function resetSellCardForm() {
+     selectedCardType = '年卡';
+     selectedCardPrice = 299;
+     selectedQuantity = 1;
+     
+     const quantityInput = document.getElementById('sell-card-quantity');
+     if (quantityInput) {
+         quantityInput.value = 1;
+     }
+     
+     document.querySelectorAll('.card-type-option').forEach(option => {
+         option.classList.remove('selected');
+     });
+     
+     updateCardTotal();
+ }
+ 
+ function selectCardType(option) {
+     document.querySelectorAll('.card-type-option').forEach(opt => {
+         opt.classList.remove('selected');
+     });
+     option.classList.add('selected');
+     
+     selectedCardType = option.dataset.type;
+     selectedCardPrice = parseInt(option.dataset.price);
+     
+     updateCardTotal();
+ }
+ 
+ function decreaseQuantity() {
+     const quantityInput = document.getElementById('sell-card-quantity');
+     if (quantityInput) {
+         let value = parseInt(quantityInput.value) || 1;
+         if (value > 1) {
+             value--;
+             quantityInput.value = value;
+             selectedQuantity = value;
+             updateCardTotal();
+         }
+     }
+ }
+ 
+ function increaseQuantity() {
+     const quantityInput = document.getElementById('sell-card-quantity');
+     if (quantityInput) {
+         let value = parseInt(quantityInput.value) || 1;
+         if (value < 100) {
+             value++;
+             quantityInput.value = value;
+             selectedQuantity = value;
+             updateCardTotal();
+         }
+     }
+ }
+ 
+ function updateCardTotal() {
+     const quantityInput = document.getElementById('sell-card-quantity');
+     if (quantityInput) {
+         selectedQuantity = parseInt(quantityInput.value) || 1;
+     }
+     
+     const total = selectedCardPrice * selectedQuantity;
+     const totalEl = document.getElementById('sell-card-total');
+     if (totalEl) {
+         totalEl.textContent = total.toFixed(2);
+     }
+ }
+ 
+ function confirmSellCard() {
+     if (selectedQuantity < 1) {
+         alert('购买数量不能少于1张');
+         return;
+     }
+     
+     const total = selectedCardPrice * selectedQuantity;
+     
+     if (businessBalance < total) {
+         alert(`余额不足！\n当前余额：¥${businessBalance.toFixed(2)}\n订单金额：¥${total.toFixed(2)}\n请先充值`);
+         return;
+     }
+     
+     const now = new Date();
+     const dateStr = now.toISOString().split('T')[0].replace(/-/g, '');
+     const timeStr = now.toTimeString().slice(0, 5);
+     const salesTime = `${dateStr} ${timeStr}`;
+     
+     const validityMap = {
+         '年卡': '365天',
+         '月卡': '30天',
+         '次卡': '10次'
+     };
+     
+     for (let i = 0; i < selectedQuantity; i++) {
+         const newSale = {
+             id: cardSalesData.length + 1,
+             cardNumber: `VIP${dateStr}${String(cardSalesData.length + i + 1).padStart(3, '0')}`,
+             cardType: selectedCardType,
+             validity: validityMap[selectedCardType],
+             salesTime: salesTime,
+             customerPhone: '待录入'
+         };
+         cardSalesData.unshift(newSale);
+     }
+     
+     businessBalance -= total;
+     
+     alert(`购卡成功！\n\n卡片类型：${selectedCardType}\n购买数量：${selectedQuantity}张\n订单金额：¥${total.toFixed(2)}\n剩余余额：¥${businessBalance.toFixed(2)}`);
+     
+     closeSellCardModal();
+     
+     renderCardSalesPage();
+ }
+ 
 // 渲染卡销售页面
 function renderCardSalesPage() {
     // 更新销售总数

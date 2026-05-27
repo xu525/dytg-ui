@@ -845,7 +845,12 @@
                     </svg>
                 </button>
                 <h1>卡销售</h1>
-                <div></div>
+                <button class="add-btn" data-action="show-sell-card">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"/>
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                    </svg>
+                </button>
             </div>
             
             <!-- 销售统计卡片 -->
@@ -870,6 +875,73 @@
                     <h3 class="section-title">销售记录</h3>
                 </div>
                 <div class="card-sales-list" id="card-sales-list"></div>
+            </div>
+        </div>
+        
+        <!-- 售卡弹窗 -->
+        <div id="sell-card-modal" class="modal">
+            <div class="modal-overlay"></div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>售卡</h2>
+                    <button class="modal-close" data-action="close-sell-card">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"/>
+                            <line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="sell-card-form">
+                        <div class="form-group">
+                            <label>选择卡片类型</label>
+                            <div class="card-type-selector">
+                                <div class="card-type-option" data-type="年卡" data-price="299">
+                                    <div class="type-icon">🎬</div>
+                                    <div class="type-name">年卡</div>
+                                    <div class="type-price">¥299</div>
+                                </div>
+                                <div class="card-type-option" data-type="月卡" data-price="99">
+                                    <div class="type-icon">📅</div>
+                                    <div class="type-name">月卡</div>
+                                    <div class="type-price">¥99</div>
+                                </div>
+                                <div class="card-type-option" data-type="次卡" data-price="59">
+                                    <div class="type-icon">🎟️</div>
+                                    <div class="type-name">次卡</div>
+                                    <div class="type-price">¥59</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>购买数量</label>
+                            <div class="quantity-selector">
+                                <button type="button" class="qty-btn minus" data-action="qty-minus">-</button>
+                                <input type="number" id="sell-card-quantity" value="1" min="1" max="100">
+                                <button type="button" class="qty-btn plus" data-action="qty-plus">+</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>订单金额</label>
+                            <div class="order-amount">
+                                <span class="currency">¥</span>
+                                <span class="amount" id="sell-card-total">299.00</span>
+                            </div>
+                        </div>
+                        <div class="balance-tip">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <line x1="12" y1="16" x2="12" y2="12"/>
+                                <line x1="12" y1="8" x2="12.01" y2="8"/>
+                            </svg>
+                            <span>请保持账户余额充足，以免购卡失败</span>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn cancel" data-action="close-sell-card">取消</button>
+                    <button class="btn confirm" data-action="confirm-sell-card">确认购卡</button>
+                </div>
             </div>
         </div>
         
