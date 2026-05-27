@@ -3854,21 +3854,31 @@ document.addEventListener('DOMContentLoaded', () => {
  }
  
  function resetSellCardForm() {
-     selectedCardType = '年卡';
-     selectedCardPrice = 299;
-     selectedQuantity = 1;
-     
-     const quantityInput = document.getElementById('sell-card-quantity');
-     if (quantityInput) {
-         quantityInput.value = 1;
-     }
-     
-     document.querySelectorAll('.card-type-option').forEach(option => {
-         option.classList.remove('selected');
-     });
-     
-     updateCardTotal();
- }
+    selectedCardType = '年卡';
+    selectedCardPrice = 299;
+    selectedQuantity = 1;
+    
+    const quantityInput = document.getElementById('sell-card-quantity');
+    if (quantityInput) {
+        quantityInput.value = 1;
+    }
+    
+    const phoneInput = document.getElementById('sell-card-phone');
+    if (phoneInput) {
+        phoneInput.value = '';
+    }
+    
+    const remarkInput = document.getElementById('sell-card-remark');
+    if (remarkInput) {
+        remarkInput.value = '';
+    }
+    
+    document.querySelectorAll('.card-type-option').forEach(option => {
+        option.classList.remove('selected');
+    });
+    
+    updateCardTotal();
+}
  
  function selectCardType(option) {
      document.querySelectorAll('.card-type-option').forEach(opt => {
@@ -3922,44 +3932,59 @@ document.addEventListener('DOMContentLoaded', () => {
  }
  
  function confirmSellCard() {
-     if (selectedQuantity < 1) {
-         alert('购买数量不能少于1张');
-         return;
-     }
-     
-     const total = selectedCardPrice * selectedQuantity;
-     
-     if (businessBalance < total) {
-         alert(`余额不足！\n当前余额：¥${businessBalance.toFixed(2)}\n订单金额：¥${total.toFixed(2)}\n请先充值`);
-         return;
-     }
-     
-     const now = new Date();
-     const dateStr = now.toISOString().split('T')[0].replace(/-/g, '');
-     const timeStr = now.toTimeString().slice(0, 5);
-     const salesTime = `${dateStr} ${timeStr}`;
-     
-     const validityMap = {
-         '年卡': '365天',
-         '月卡': '30天',
-         '次卡': '10次'
-     };
-     
-     for (let i = 0; i < selectedQuantity; i++) {
-         const newSale = {
-             id: cardSalesData.length + 1,
-             cardNumber: `VIP${dateStr}${String(cardSalesData.length + i + 1).padStart(3, '0')}`,
-             cardType: selectedCardType,
-             validity: validityMap[selectedCardType],
-             salesTime: salesTime,
-             customerPhone: '待录入'
-         };
-         cardSalesData.unshift(newSale);
-     }
+    if (selectedQuantity < 1) {
+        alert('购买数量不能少于1张');
+        return;
+    }
+    
+    const total = selectedCardPrice * selectedQuantity;
+    
+    if (businessBalance < total) {
+        alert(`余额不足！\n当前余额：¥${businessBalance.toFixed(2)}\n订单金额：¥${total.toFixed(2)}\n请先充值`);
+        return;
+    }
+    
+    const phoneInput = document.getElementById('sell-card-phone');
+    const remarkInput = document.getElementById('sell-card-remark');
+    
+    const customerPhone = phoneInput ? phoneInput.value.trim() || '待录入' : '待录入';
+    const remark = remarkInput ? remarkInput.value.trim() : '';
+    
+    const now = new Date();
+    const dateStr = now.toISOString().split('T')[0].replace(/-/g, '');
+    const timeStr = now.toTimeString().slice(0, 5);
+    const salesTime = `${dateStr} ${timeStr}`;
+    
+    const validityMap = {
+        '年卡': '365天',
+        '月卡': '30天',
+        '次卡': '10次'
+    };
+    
+    for (let i = 0; i < selectedQuantity; i++) {
+        const newSale = {
+            id: cardSalesData.length + 1,
+            cardNumber: `VIP${dateStr}${String(cardSalesData.length + i + 1).padStart(3, '0')}`,
+            cardType: selectedCardType,
+            validity: validityMap[selectedCardType],
+            salesTime: salesTime,
+            customerPhone: customerPhone,
+            remark: remark
+        };
+        cardSalesData.unshift(newSale);
+    }
      
      businessBalance -= total;
-     
-     alert(`购卡成功！\n\n卡片类型：${selectedCardType}\n购买数量：${selectedQuantity}张\n订单金额：¥${total.toFixed(2)}\n剩余余额：¥${businessBalance.toFixed(2)}`);
+    
+    let message = `购卡成功！\n\n卡片类型：${selectedCardType}\n购买数量：${selectedQuantity}张\n订单金额：¥${total.toFixed(2)}\n剩余余额：¥${businessBalance.toFixed(2)}`;
+    if (customerPhone !== '待录入') {
+        message += `\n客户手机：${customerPhone}`;
+    }
+    if (remark) {
+        message += `\n备注：${remark}`;
+    }
+    
+    alert(message);
      
      closeSellCardModal();
      
@@ -3980,7 +4005,10 @@ function renderCardSalesPage() {
     
     listContainer.innerHTML = cardSalesData.map(sale => {
         // 掩码手机号
-        const maskedPhone = sale.customerPhone.slice(0, 3) + '****' + sale.customerPhone.slice(7);
+        let maskedPhone = sale.customerPhone;
+        if (sale.customerPhone && sale.customerPhone !== '待录入' && sale.customerPhone.length >= 11) {
+            maskedPhone = sale.customerPhone.slice(0, 3) + '****' + sale.customerPhone.slice(7);
+        }
         
         return `
             <div class="card-sales-item">
@@ -4003,6 +4031,12 @@ function renderCardSalesPage() {
                         <span class="detail-label">售卡对象</span>
                         <span class="detail-value masked-phone">${maskedPhone}</span>
                     </div>
+                    ${sale.remark ? `
+                    <div class="detail-row">
+                        <span class="detail-label">备注</span>
+                        <span class="detail-value">${sale.remark}</span>
+                    </div>
+                    ` : ''}
                 </div>
             </div>
         `;
