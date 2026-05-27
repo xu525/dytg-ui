@@ -878,6 +878,50 @@
             </div>
         </div>
         
+        <!-- 销售记录详情页面 -->
+        <div id="sale-detail-page" class="page">
+            <div class="page-header">
+                <button class="back-btn" data-back>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                </button>
+                <h1>销售详情</h1>
+                <div></div>
+            </div>
+            
+            <div class="sale-detail-container">
+                <!-- 基本信息卡片 -->
+                <div class="detail-info-card">
+                    <div class="info-header">
+                        <span class="info-title">销售信息</span>
+                    </div>
+                    <div class="info-content">
+                        <div class="info-row">
+                            <span class="info-label">销售时间</span>
+                            <span class="info-value" id="detail-sales-time"></span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">客户手机号</span>
+                            <span class="info-value" id="detail-customer-phone"></span>
+                        </div>
+                        <div class="info-row" id="detail-remark-row" style="display: none;">
+                            <span class="info-label">备注</span>
+                            <span class="info-value" id="detail-remark"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 电影卡信息 -->
+                <div class="cards-section">
+                    <div class="section-header">
+                        <h3 class="section-title">电影卡信息</h3>
+                    </div>
+                    <div class="cards-container" id="detail-cards-container"></div>
+                </div>
+            </div>
+        </div>
+        
         <!-- 售卡弹窗 -->
         <div id="sell-card-modal" class="modal">
             <div class="modal-overlay"></div>

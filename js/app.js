@@ -3991,6 +3991,78 @@ document.addEventListener('DOMContentLoaded', () => {
      renderCardSalesPage();
  }
  
+// 当前选中的销售记录
+let currentSaleDetail = null;
+
+// 打开销售详情页
+function openSaleDetail(sale) {
+    currentSaleDetail = sale;
+    renderSaleDetailPage();
+    showPage('sale-detail');
+}
+
+// 渲染销售详情页面
+function renderSaleDetailPage() {
+    if (!currentSaleDetail) return;
+    
+    const sale = currentSaleDetail;
+    
+    // 更新销售时间
+    const salesTimeEl = document.getElementById('detail-sales-time');
+    if (salesTimeEl) {
+        salesTimeEl.textContent = sale.salesTime;
+    }
+    
+    // 更新客户手机号
+    const phoneEl = document.getElementById('detail-customer-phone');
+    if (phoneEl) {
+        let phone = sale.customerPhone;
+        if (phone && phone !== '待录入' && phone.length >= 11) {
+            phone = phone.slice(0, 3) + '****' + phone.slice(7);
+        }
+        phoneEl.textContent = phone;
+    }
+    
+    // 更新备注
+    const remarkRowEl = document.getElementById('detail-remark-row');
+    const remarkEl = document.getElementById('detail-remark');
+    if (remarkEl && remarkRowEl) {
+        if (sale.remark && sale.remark.trim()) {
+            remarkEl.textContent = sale.remark;
+            remarkRowEl.style.display = 'flex';
+        } else {
+            remarkRowEl.style.display = 'none';
+        }
+    }
+    
+    // 渲染电影卡信息
+    const cardsContainer = document.getElementById('detail-cards-container');
+    if (cardsContainer) {
+        cardsContainer.innerHTML = `
+            <div class="detail-card-item">
+                <div class="detail-card-header">
+                    <span class="detail-card-number">${sale.cardNumber}</span>
+                    <span class="detail-card-type">${sale.cardType}</span>
+                </div>
+                <div class="detail-card-body">
+                    <div class="detail-card-row">
+                        <span class="detail-card-label">使用有效期</span>
+                        <span class="detail-card-value">${sale.validity}</span>
+                    </div>
+                    <div class="detail-card-row">
+                        <span class="detail-card-label">售卡时间</span>
+                        <span class="detail-card-value">${sale.salesTime}</span>
+                    </div>
+                    <div class="detail-card-row">
+                        <span class="detail-card-label">客户手机</span>
+                        <span class="detail-card-value">${sale.customerPhone === '待录入' ? '待录入' : (sale.customerPhone.slice(0, 3) + '****' + sale.customerPhone.slice(7))}</span>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+}
+
 // 渲染卡销售页面
 function renderCardSalesPage() {
     // 更新销售总数
@@ -4011,11 +4083,16 @@ function renderCardSalesPage() {
         }
         
         return `
-            <div class="card-sales-item">
+            <div class="card-sales-item" data-sale-id="${sale.id}">
                 <div class="card-sales-header">
                     <div class="card-sales-info">
                         <span class="card-number">${sale.cardNumber}</span>
                         <span class="card-type">${sale.cardType}</span>
+                    </div>
+                    <div class="card-sales-arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="9 18 15 12 9 6"/>
+                        </svg>
                     </div>
                 </div>
                 <div class="card-sales-detail">
@@ -4041,5 +4118,16 @@ function renderCardSalesPage() {
             </div>
         `;
     }).join('');
+    
+    // 添加点击事件
+    listContainer.querySelectorAll('.card-sales-item').forEach(item => {
+        item.addEventListener('click', () => {
+            const saleId = parseInt(item.dataset.saleId);
+            const sale = cardSalesData.find(s => s.id === saleId);
+            if (sale) {
+                openSaleDetail(sale);
+            }
+        });
+    });
 }
 
